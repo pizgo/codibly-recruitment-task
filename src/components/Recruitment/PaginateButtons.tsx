@@ -5,7 +5,8 @@ const PaginateButtons: React.FC = () => {
 
     return (
         <>
-
+            <button>Prev</button>
+            <button>Next</button>
         </>
     )
 }

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 
 interface ProductListProps {
-    firstPageData: {
+    pageData: {
         id: string,
         name: string,
         year: number,
@@ -17,7 +17,7 @@ const ProductList: React.FC<ProductListProps> = props => {
         <>
             <div>
                 <ul>
-                    {props.firstPageData.map((item, key) =>
+                    {props.pageData.map((item, key) =>
                         <li key={item.id}>
                             <p>{item.name}</p>
                         </li>
