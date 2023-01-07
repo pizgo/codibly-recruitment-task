@@ -1,14 +1,18 @@
 import React, {useEffect} from "react";
 
-const PaginateButtons: React.FC = () => {
+interface PaginateButtonsProps  {
+    handlePrev: () => void;
+    handleNext: () => void;
+}
+const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
 
 
     return (
-        <>
-            <button>Prev</button>
-            <button>Next</button>
-        </>
-    )
+         <>
+             <button onClick={props.handlePrev}>Prev</button>
+             <button onClick={props.handleNext}>Next</button>
+         </>
+     )
 }
 
 export default PaginateButtons;

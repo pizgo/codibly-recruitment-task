@@ -19,7 +19,7 @@ const ProductList: React.FC<ProductListProps> = props => {
                 <ul>
                     {props.pageData.map((item, key) =>
                         <li key={item.id}>
-                            <p>{item.name}</p>
+                            <p>{item.id}</p>
                         </li>
                     )}
                 </ul>
