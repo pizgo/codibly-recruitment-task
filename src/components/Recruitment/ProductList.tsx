@@ -18,7 +18,8 @@ const ProductList: React.FC<ProductListProps> = props => {
             <div>
                 <table>
                     {props.pageData.map((item, key) =>
-                        <tr key={item.id}>
+                        <tr key={item.id}
+                        style={{background: item.color}}>
                             <th>{item.id}</th>
                             <th>{item.name}</th>
                             <th>{item.year}</th>
