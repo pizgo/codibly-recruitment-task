@@ -3,6 +3,6 @@ export interface fetchedData  {
     name: string,
     year: number,
     color: string,
-    pantone_value: string
+    pantone_value: string,
 }
 

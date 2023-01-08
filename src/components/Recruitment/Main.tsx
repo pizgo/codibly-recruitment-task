@@ -6,7 +6,10 @@ import { fetchedData } from "./interfaces";
 
 const Main: React.FC = () => {
     const [pageData, setPageData] = useState<fetchedData[]>([]);
+    const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
+    const [totalFromApi, setTotalFromApi] = useState<any>();
     const [pageNumber, setPageNumber] = useState<number>(1);
+
 
     let currentPageNumber = 1;
 
@@ -15,33 +18,37 @@ const Main: React.FC = () => {
         )
             .then ((response) => response.json())
             .then ((responseBody) => {
-                setPageData(responseBody.data)
+                setPageData(responseBody.data);
+                console.log(responseBody)
             })
     }, [])
 
 
     const handleNext = () => {
-        setPageNumber(pageNumber + 1)
-        console.log(pageNumber)
-        fetch(`https://reqres.in/api/products/?page=${pageNumber}&per_page=5`,
+        let newPageNumber = pageNumber + 1;
+        setPageNumber(newPageNumber)
+        fetch(`https://reqres.in/api/products/?page=${newPageNumber}&per_page=5`,
         )
             .then ((response) => response.json())
             .then ((responseBody) => {
                 setPageData(responseBody.data)
+                setPageNumberFromApi(responseBody.page);
+                setTotalFromApi(responseBody.total_pages);
             })
-        console.log(pageNumber)
     }
 
     const handlePrev = () => {
-        setPageNumber(pageNumber - 1)
-        console.log(pageNumber)
-        fetch(`https://reqres.in/api/products/?page=${pageNumber}&per_page=5`,
+        let newPageNumber = pageNumber - 1;
+        setPageNumber(newPageNumber)
+        fetch(`https://reqres.in/api/products/?page=${newPageNumber}&per_page=5`,
         )
             .then ((response) => response.json())
             .then ((responseBody) => {
                 setPageData(responseBody.data)
+                setPageNumberFromApi(responseBody.page);
+                setTotalFromApi(responseBody.total_pages);
+                console.log(pageNumberFromApi);
             })
-        console.log(pageNumber)
     }
 
     return (
@@ -51,6 +58,9 @@ const Main: React.FC = () => {
             <PaginateButtons
                 handleNext = {handleNext}
                 handlePrev = {handlePrev}
+                pageNumberFromApi = {pageNumberFromApi}
+                totalFromApi = {totalFromApi}
+                pageData={pageData}
             />
         </>
     )
