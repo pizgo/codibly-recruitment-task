@@ -7,11 +7,10 @@ import { fetchedData } from "./interfaces";
 const Main: React.FC = () => {
     const [pageData, setPageData] = useState<fetchedData[]>([]);
     const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
-    const [totalFromApi, setTotalFromApi] = useState<any>();
+    const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
     const [pageNumber, setPageNumber] = useState<number>(1);
 
 
-    let currentPageNumber = 1;
 
     useEffect(() => {
         fetch(`https://reqres.in/api/products/?page=${pageNumber}&per_page=5`,
@@ -33,7 +32,7 @@ const Main: React.FC = () => {
             .then ((responseBody) => {
                 setPageData(responseBody.data)
                 setPageNumberFromApi(responseBody.page);
-                setTotalFromApi(responseBody.total_pages);
+                setTotalPagesFromApi(responseBody.total_pages);
             })
     }
 
@@ -46,8 +45,7 @@ const Main: React.FC = () => {
             .then ((responseBody) => {
                 setPageData(responseBody.data)
                 setPageNumberFromApi(responseBody.page);
-                setTotalFromApi(responseBody.total_pages);
-                console.log(pageNumberFromApi);
+                setTotalPagesFromApi(responseBody.total_pages);
             })
     }
 
@@ -59,7 +57,7 @@ const Main: React.FC = () => {
                 handleNext = {handleNext}
                 handlePrev = {handlePrev}
                 pageNumberFromApi = {pageNumberFromApi}
-                totalFromApi = {totalFromApi}
+                totalPagesFromApi = {totalPagesFromApi}
                 pageData={pageData}
             />
         </>

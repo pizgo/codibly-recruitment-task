@@ -1,5 +1,5 @@
 export interface fetchedData  {
-    id: string,
+    id: number,
     name: string,
     year: number,
     color: string,

@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 
 interface ProductListProps {
     pageData: {
-        id: string,
+        id: number,
         name: string,
         year: number,
         color: string,
@@ -19,7 +19,9 @@ const ProductList: React.FC<ProductListProps> = props => {
                 <ul>
                     {props.pageData.map((item, key) =>
                         <li key={item.id}>
-                            <p>{item.id}</p>
+                            <p>{item.name}</p>
+                            <p>{item.year}</p>
+                            <p>{item.pantone_value}</p>
                         </li>
                     )}
                 </ul>

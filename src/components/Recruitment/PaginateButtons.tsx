@@ -1,22 +1,21 @@
 import React, {useEffect} from "react";
+import { fetchedData } from "./interfaces";
 
 interface PaginateButtonsProps  {
     handlePrev: () => void;
     handleNext: () => void;
     pageNumberFromApi: number;
-    totalFromApi: number;
-    pageData: {
-        id: string,
-        name: string,
-        year: number,
-        color: string,
-        pantone_value: string
-    }[];
+    totalPagesFromApi: number;
+    pageData: fetchedData[]
+
 }
 const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
 
-    const lastProducts = props.pageData.id[props.pageData.length - 1];
+    //dlaczego napiejrw nie zczytuje danych
+    // const lastProduct = props.pageData[props.pageData.length-1].id
+    //console.log(props.pageData[0])
 
+    const isNotLastPage = (props.totalPagesFromApi !== props.pageNumberFromApi);
 
     return (
          <>
@@ -24,7 +23,7 @@ const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
                  style={{visibility: (props.pageNumberFromApi !== 1) ? 'visible' : 'hidden'}}
                  onClick={props.handlePrev}>Prev</button>
              <button
-                 style={{visibility: (props.totalFromApi !== lastProducts ) ? 'visible' : 'hidden'}}
+                 style={{visibility: isNotLastPage ? 'visible' : 'hidden'}}
                  onClick={props.handleNext}>Next</button>
          </>
      )
