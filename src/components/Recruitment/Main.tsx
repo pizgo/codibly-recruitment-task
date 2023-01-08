@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import IdFilter from "./IdFilter";
 import ProductList from "./ProductList";
 import PaginateButtons from "./PaginateButtons";
+import Modal from "./Modal";
+import ModalContent from "./ModalContent";
 import { fetchedData } from "./interfaces";
 
 const Main: React.FC = () => {
@@ -9,6 +11,7 @@ const Main: React.FC = () => {
     const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
     const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
     const [pageNumber, setPageNumber] = useState<number>(1);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
 
 
@@ -49,6 +52,8 @@ const Main: React.FC = () => {
             })
     }
 
+    const onClose = () => setIsOpen(false);
+
     return (
         <>
             <IdFilter/>
@@ -60,6 +65,12 @@ const Main: React.FC = () => {
                 totalPagesFromApi = {totalPagesFromApi}
                 pageData={pageData}
             />
+            <button onClick={() => setIsOpen(true)}>Kliknij żeby otworzyć modal</button>
+            <Modal
+                isOpen={isOpen}
+                onClose={onClose}>
+                    <ModalContent/>
+            </Modal>
         </>
     )
 }
