@@ -15,16 +15,13 @@ const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
     // const lastProduct = props.pageData[props.pageData.length-1].id
     //console.log(props.pageData[0])
 
+    const isNotFirstPage = (props.pageNumberFromApi !== 1);
     const isNotLastPage = (props.totalPagesFromApi !== props.pageNumberFromApi);
 
     return (
          <>
-             <button
-                 style={{visibility: (props.pageNumberFromApi !== 1) ? 'visible' : 'hidden'}}
-                 onClick={props.handlePrev}>Prev</button>
-             <button
-                 style={{visibility: isNotLastPage ? 'visible' : 'hidden'}}
-                 onClick={props.handleNext}>Next</button>
+             {isNotFirstPage && <button onClick={props.handlePrev}>Prev</button>}
+             {isNotLastPage && <button onClick={props.handleNext}>Next</button>}
          </>
      )
 }
