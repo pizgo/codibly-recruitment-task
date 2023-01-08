@@ -26,7 +26,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-        <Main></Main>
+        <Main/>
 
       {/*<NewTodo todoAddHandler={todoAddHandler}/> //przekazuję pointer do funkcji jako props*/}
       {/*<TodoList*/}

@@ -11,12 +11,13 @@ const Modal: React.FC<ModalProps> = (props) => {
 
     if(!props.isOpen) return null;
 
-    return  (
+    return createPortal(
         <>
             <button onClick={props.onClose}>Zamknij modal</button>
-            <h2>{props.children}</h2>
-        </>
-        //document.getElementById('portal')
+            {props.children}
+        </>,
+        //document.getElementById('portal') //czemu to nie działa
+        document.body
     )
 }
 

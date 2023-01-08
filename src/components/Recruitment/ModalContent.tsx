@@ -8,7 +8,7 @@ const ModalContent: React.FC = () => {
 
     return  (
         <>
-            <h2>Zawartość modalu</h2>
+            <p>Zawartość modalu</p>
         </>
     )
 }

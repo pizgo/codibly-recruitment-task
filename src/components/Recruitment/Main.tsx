@@ -11,9 +11,7 @@ const Main: React.FC = () => {
     const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
     const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-
-
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
         fetch(`https://reqres.in/api/products/?page=${pageNumber}&per_page=5`,
@@ -52,22 +50,22 @@ const Main: React.FC = () => {
             })
     }
 
-    const onClose = () => setIsOpen(false);
+    const modalOpen = () => setIsModalOpen(true);
+    const onClose = () => setIsModalOpen(false);
 
     return (
         <>
             <IdFilter/>
-            <ProductList pageData={pageData}/>
+            <ProductList pageData={pageData}
+                modalOpen = {modalOpen}/>
             <PaginateButtons
                 handleNext = {handleNext}
                 handlePrev = {handlePrev}
                 pageNumberFromApi = {pageNumberFromApi}
                 totalPagesFromApi = {totalPagesFromApi}
-                pageData={pageData}
-            />
-            <button onClick={() => setIsOpen(true)}>Kliknij żeby otworzyć modal</button>
+                pageData={pageData}/>
             <Modal
-                isOpen={isOpen}
+                isOpen={isModalOpen}
                 onClose={onClose}>
                     <ModalContent/>
             </Modal>
