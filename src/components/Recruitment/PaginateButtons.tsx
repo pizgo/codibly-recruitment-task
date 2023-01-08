@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { fetchedData } from "./interfaces";
 
 interface PaginateButtonsProps  {
@@ -7,7 +7,6 @@ interface PaginateButtonsProps  {
     pageNumberFromApi: number;
     totalPagesFromApi: number;
     pageData: fetchedData[]
-
 }
 const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
 

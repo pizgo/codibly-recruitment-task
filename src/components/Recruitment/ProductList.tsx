@@ -16,15 +16,15 @@ const ProductList: React.FC<ProductListProps> = props => {
     return (
         <>
             <div>
-                <ul>
+                <table>
                     {props.pageData.map((item, key) =>
-                        <li key={item.id}>
-                            <p>{item.name}</p>
-                            <p>{item.year}</p>
-                            <p>{item.pantone_value}</p>
-                        </li>
+                        <tr key={item.id}>
+                            <th>{item.id}</th>
+                            <th>{item.name}</th>
+                            <th>{item.year}</th>
+                        </tr>
                     )}
-                </ul>
+                </table>
             </div>
 
         </>
