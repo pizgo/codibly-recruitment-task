@@ -8,10 +8,12 @@ interface ProductListProps {
         color: string,
         pantone_value: string
     }[];
-    modalOpen: () => void;
+    modalOpen: ({}) => void;
+   // setIndex:  () => number;
 }
 
 const ProductList: React.FC<ProductListProps> = props => {
+
 
     return (
         <>
@@ -20,7 +22,7 @@ const ProductList: React.FC<ProductListProps> = props => {
                     {props.pageData.map((item, key) =>
                         <tr key={item.id}
                         style={{background: item.color}}
-                        onClick={props.modalOpen}>
+                        onClick={() => props.modalOpen(item)}>
                             <td>{item.id}</td>
                             <td>{item.name}</td>
                             <td>{item.year}</td>
