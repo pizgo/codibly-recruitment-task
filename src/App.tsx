@@ -12,7 +12,9 @@ const App: React.FC = () => {
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [dataForModal, setDataForModal]= useState<any>();
-    const [searchedId, setSearchedId]= useState<any>();
+    const [filteredId, setFilteredId]= useState<any>(1);
+    const [filteredData, setFilteredData]= useState<fetchedData[]>([]);
+    const [isDataFiltered, setIsDataFiltered]= useState<boolean>(false);
 
     useEffect(() => {
         fetch(`https://reqres.in/api/products/?per_page=5`)
@@ -23,9 +25,18 @@ const App: React.FC = () => {
             })
     }, [])
 
-    const searchId = (enteredId: any) => {
-        setSearchedId(enteredId)
-        console.log(enteredId)
+    const filterID = (enteredId: any) => {
+        setFilteredId(enteredId)
+        fetch(`https://reqres.in/api/products/?id=${filteredId}`,
+        )
+            .then ((response) => response.json())
+            .then ((responseBody) => {
+                setFilteredData(responseBody.data)
+                console.log(responseBody.data)
+            })
+        if (filteredData) {
+            setIsDataFiltered(true);
+        }
     }
 
 
@@ -63,10 +74,11 @@ const App: React.FC = () => {
 
     return (
         <>
-            <IdFilter
-                searchId = {searchId}/>
+            <IdFilter filterId= {filterID}/>
             <ProductList
                 pageData={pageData}
+                filteredData={filteredData}
+                isDataFiltered={isDataFiltered}
                 modalOpen = {modalOpen}/>
             <PaginateButtons
                 handleNext = {handleNext}

@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 
 interface IdFilterProps {
-    searchId: (enteredId: any) => void;
+    filterId: (enteredId: any) => void;
 }
 
 const IdFilter: React.FC<IdFilterProps> = (props) => {
@@ -11,7 +11,7 @@ const IdFilter: React.FC<IdFilterProps> = (props) => {
 
     const handleChange = (event: React.ChangeEvent) => {
         const enteredId = idInputRef.current!.value;
-        props.searchId(enteredId)
+        props.filterId(enteredId)
     }
 
     return (
