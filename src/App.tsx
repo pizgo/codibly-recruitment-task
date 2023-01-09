@@ -12,6 +12,7 @@ const App: React.FC = () => {
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [dataForModal, setDataForModal]= useState<any>();
+    const [searchedId, setSearchedId]= useState<any>();
 
     useEffect(() => {
         fetch(`https://reqres.in/api/products/?per_page=5`)
@@ -21,6 +22,11 @@ const App: React.FC = () => {
                 console.log(responseBody)
             })
     }, [])
+
+    const searchId = (enteredId: any) => {
+        setSearchedId(enteredId)
+        console.log(enteredId)
+    }
 
 
     const handleNext = () => {
@@ -57,7 +63,8 @@ const App: React.FC = () => {
 
     return (
         <>
-            <IdFilter/>
+            <IdFilter
+                searchId = {searchId}/>
             <ProductList
                 pageData={pageData}
                 modalOpen = {modalOpen}/>
