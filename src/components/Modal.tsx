@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 
 interface ModalProps {
     isOpen: boolean;
-    children?: React.ReactNode //przekazywanie children props w TS
     onClose: () => void;
     dataForModal: {
         id: number,

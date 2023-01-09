@@ -1,39 +1,78 @@
-import React, {useEffect, useState} from 'react';
-import TodoList from './components/TodoList';
-import NewTodo from "./components/NewTodo";
-import {Todo} from './todo.model'
-import Main from './components/Recruitment/Main'
+import React, {useEffect, useState} from "react";
+import IdFilter from "./components/IdFilter";
+import ProductList from "./components/ProductList";
+import PaginateButtons from "./components/PaginateButtons";
+import Modal from "./components/Modal";
+import { fetchedData } from "./interfaces";
 
 const App: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]); //tu się dzieje destrukturyzacja! use state zwraca tablicę z dwoma elementami(pierwszy to latest state snapshot, drugi to funkcja do update stan i rerender)  i tu od razu przypisujemy je do dwóch zmiennych
-  //   //precyzujemy jaki dokładnie typ danych będzie przekazywany do useState
-  //
-  // const todoAddHandler = (text: string) => {
-  //   setTodos(prevTodos =>[
-  //       ...prevTodos,
-  //       {id: Math.random().toString(), text: text}])
-  // }
-  //
-  // const todoDeleteHandler = (todoId: string) => {
-  //     setTodos(prevTodos => {
-  //         return prevTodos.filter(todo => todo.id !== todoId) //jesli jest equal to
-  //     })
-  // }
+    const [pageData, setPageData] = useState<fetchedData[]>([]);
+    const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
+    const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [dataForModal, setDataForModal]= useState<any>();
 
-  //   const [secondPageData, setSecondPageData] = useState<{}[]>([]);
-  //   const [thirdPageData, setThirdPageData] = useState<{}[]>([]);
+    useEffect(() => {
+        fetch(`https://reqres.in/api/products/?per_page=5`)
+            .then ((response) => response.json())
+            .then ((responseBody) => {
+                setPageData(responseBody.data);
+                console.log(responseBody)
+            })
+    }, [])
 
 
-  return (
-    <div className="App">
-        <Main/>
+    const handleNext = () => {
+        let newPageNumber = pageNumber + 1;
+        setPageNumber(newPageNumber)
+        fetch(`https://reqres.in/api/products/?page=${newPageNumber}&per_page=5`,
+        )
+            .then ((response) => response.json())
+            .then ((responseBody) => {
+                setPageData(responseBody.data)
+                setPageNumberFromApi(responseBody.page);
+                setTotalPagesFromApi(responseBody.total_pages);
+            })
+    }
 
-      {/*<NewTodo todoAddHandler={todoAddHandler}/> //przekazuję pointer do funkcji jako props*/}
-      {/*<TodoList*/}
-      {/*    items={todos}*/}
-      {/*    onDeleteTodo = {todoDeleteHandler}/>*/}
-    </div>
-  );
-};
+    const handlePrev = () => {
+        let newPageNumber = pageNumber - 1;
+        setPageNumber(newPageNumber)
+        fetch(`https://reqres.in/api/products/?page=${newPageNumber}&per_page=5`,
+        )
+            .then ((response) => response.json())
+            .then ((responseBody) => {
+                setPageData(responseBody.data)
+                setPageNumberFromApi(responseBody.page);
+                setTotalPagesFromApi(responseBody.total_pages);
+            })
+    }
+
+    const modalOpen = (item: {}) => {
+        setIsModalOpen(true);
+        setDataForModal(item);
+    }
+    const onClose = () => setIsModalOpen(false);
+
+    return (
+        <>
+            <IdFilter/>
+            <ProductList
+                pageData={pageData}
+                modalOpen = {modalOpen}/>
+            <PaginateButtons
+                handleNext = {handleNext}
+                handlePrev = {handlePrev}
+                pageNumberFromApi = {pageNumberFromApi}
+                totalPagesFromApi = {totalPagesFromApi}
+                pageData={pageData}/>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={onClose}
+                dataForModal={dataForModal}/>
+        </>
+    )
+}
 
 export default App;

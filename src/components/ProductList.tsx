@@ -9,7 +9,6 @@ interface ProductListProps {
         pantone_value: string
     }[];
     modalOpen: ({}) => void;
-   // setIndex:  () => number;
 }
 
 const ProductList: React.FC<ProductListProps> = props => {

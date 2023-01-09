@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchedData } from "./interfaces";
+import { fetchedData } from "../interfaces";
 
 interface PaginateButtonsProps  {
     handlePrev: () => void;
