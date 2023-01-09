@@ -5,6 +5,13 @@ interface ModalProps {
     isOpen: boolean;
     children?: React.ReactNode //przekazywanie children props w TS
     onClose: () => void;
+    dataForModal: {
+        id: number,
+        name: string,
+        year: number,
+        color: string,
+        pantone_value: string
+    }
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
@@ -13,8 +20,12 @@ const Modal: React.FC<ModalProps> = (props) => {
 
     return createPortal(
         <>
+            <p>{props.dataForModal.id}</p>
+            <p>{props.dataForModal.name}</p>
+            <p>{props.dataForModal.year}</p>
+            <p>{props.dataForModal.color}</p>
+            <p>{props.dataForModal.pantone_value}</p>
             <button onClick={props.onClose}>Zamknij modal</button>
-            {props.children}
         </>,
         //document.getElementById('portal') //czemu to nie działa
         document.body

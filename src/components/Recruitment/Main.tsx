@@ -12,7 +12,7 @@ const Main: React.FC = () => {
     const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [indexForModal, setIndexForModal]= useState<any>();
+    const [dataForModal, setDataForModal]= useState<any>();
 
     useEffect(() => {
         fetch(`https://reqres.in/api/products/?page=${pageNumber}&per_page=5`,
@@ -51,14 +51,10 @@ const Main: React.FC = () => {
             })
     }
 
-    const setIndex = (event: React.MouseEvent<HTMLTableRowElement>) => {
-        return setIndexForModal(indexForModal)
-
-    }
-
     const modalOpen = (item: {}) => {
         setIsModalOpen(true);
-        console.log(item)
+        setDataForModal(item);
+        console.log(dataForModal)
     }
     const onClose = () => setIsModalOpen(false);
 
@@ -68,7 +64,6 @@ const Main: React.FC = () => {
             <ProductList
                 pageData={pageData}
                 modalOpen = {modalOpen}
-                //setIndex={setIndex}
             />
             <PaginateButtons
                 handleNext = {handleNext}
@@ -79,6 +74,7 @@ const Main: React.FC = () => {
             <Modal
                 isOpen={isModalOpen}
                 onClose={onClose}
+                dataForModal={dataForModal}
                 >
                     <ModalContent/>
             </Modal>
