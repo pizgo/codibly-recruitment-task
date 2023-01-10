@@ -1,19 +1,13 @@
 import React from "react";
+import { fetchedData } from "../interfaces";
+
 
 interface ProductListProps {
-    pageData: {
-        id: number,
-        name: string,
-        year: number,
-        color: string,
-        pantone_value: string
-    }[];
-    modalOpen: ({}) => void;
+    pageData: fetchedData[],
+    modalOpen: ({}) => void
 }
 
 const ProductList: React.FC<ProductListProps> = props => {
-
-    console.log(props.pageData)
 
     return (
         <>
@@ -30,7 +24,6 @@ const ProductList: React.FC<ProductListProps> = props => {
                     )}
                 </table>
             </div>
-
         </>
     )
 }

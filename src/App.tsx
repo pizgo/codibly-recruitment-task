@@ -28,7 +28,6 @@ const App: React.FC = () => {
             .then ((response) => response.json())
             .then ((responseBody) => {
                 setPageData([responseBody.data])
-                console.log(responseBody.data)
             })
     }
 

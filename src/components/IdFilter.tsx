@@ -1,12 +1,10 @@
-import React, {useRef} from "react";
+import React from "react";
 
 interface IdFilterProps {
     filterId: (enteredId: string) => void;
 }
 
 const IdFilter: React.FC<IdFilterProps> = (props) => {
-
-//jesli nie ma takiego id - non Id found
 
     const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
         const enteredId = event.currentTarget.value;
@@ -17,7 +15,7 @@ const IdFilter: React.FC<IdFilterProps> = (props) => {
         <form>
             <input
                 type='text'
-                placeholder='provide the product ID'
+                placeholder='type the ID'
                 onChange={handleChange}
                 />
         </form>
