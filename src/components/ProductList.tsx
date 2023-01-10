@@ -4,7 +4,7 @@ import { fetchedData } from "../interfaces";
 
 interface ProductListProps {
     pageData: fetchedData[],
-    modalOpen: ({}) => void
+    modalOpen: ({}) => void,
 }
 
 const ProductList: React.FC<ProductListProps> = props => {

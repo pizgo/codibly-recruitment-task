@@ -23,12 +23,17 @@ const App: React.FC = () => {
     }, [])
 
     const filterID = (enteredId: string) => {
-        fetch(`https://reqres.in/api/products/?id=${enteredId}`,
-        )
-            .then ((response) => response.json())
-            .then ((responseBody) => {
-                setPageData([responseBody.data])
-            })
+        let input;
+        if (enteredId) {
+            input = `https://reqres.in/api/products/?id=${enteredId}`;
+        } else {
+            input = `https://reqres.in/api/products/?per_page=5`
+        }
+        fetch(input)
+                .then ((response) => response.json())
+                .then ((responseBody) => {
+                    setPageData([responseBody.data].flat())
+                })
     }
 
     const handleNext = () => {
