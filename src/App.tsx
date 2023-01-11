@@ -4,6 +4,7 @@ import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
 import Modal from "./components/Modal";
 import { FetchedData } from "./interfaces";
+import {fetchingData} from './api-methods';
 
 const App: React.FC = () => {
     const [pageData, setPageData] = useState<FetchedData[]>([]);
@@ -13,25 +14,26 @@ const App: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [dataForModal, setDataForModal]= useState<any>();
 
+
     useEffect(()  : void => {
-        fetch(`https://reqres.in/api/products/?per_page=5`)
-            .then ((response) => response.json())
-            .then ((responseBody) => {
+        fetchingData({per_page: 5})
+            .then ((response: Response) => response.json())
+            .then ((responseBody: any) => {
                 setPageData(responseBody.data);
                 console.log(responseBody)
             })
     }, [])
 
     const filterID = (enteredId: string) : void => {
-        let input;
+        let params;
         if (enteredId) {
-            input = `https://reqres.in/api/products/?id=${enteredId}`;
+            params = {id: enteredId};
         } else {
-            input = `https://reqres.in/api/products/?per_page=5`
+            params = {per_page: 5}
         }
-        fetch(input)
-                .then ((response) => response.json())
-                .then ((responseBody) => {
+        fetchingData(params)
+                .then ((response: Response) => response.json())
+                .then ((responseBody: any) => {
                     setPageData([responseBody.data].flat())
                 })
     }
@@ -39,8 +41,7 @@ const App: React.FC = () => {
     const handleNext = () : void => {
         let newPageNumber : number = pageNumber + 1;
         setPageNumber(newPageNumber)
-        fetch(`https://reqres.in/api/products/?page=${newPageNumber}&per_page=5`,
-        )
+        fetchingData({page: newPageNumber, per_page: '5'})
             .then ((response) => response.json())
             .then ((responseBody) => {
                 setPageData(responseBody.data)
@@ -52,8 +53,7 @@ const App: React.FC = () => {
     const handlePrev = () : void => {
         let newPageNumber : number = pageNumber - 1;
         setPageNumber(newPageNumber)
-        fetch(`https://reqres.in/api/products/?page=${newPageNumber}&per_page=5`,
-        )
+        fetchingData({page: newPageNumber, per_page: '5'})
             .then ((response) => response.json())
             .then ((responseBody) => {
                 setPageData(responseBody.data)
