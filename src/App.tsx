@@ -4,7 +4,7 @@ import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
 import Modal from "./components/Modal";
 import { FetchedData } from "./interfaces";
-import {fetchingData} from './api-methods';
+import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData} from './api-methods';
 
 const App: React.FC = () => {
     const [pageData, setPageData] = useState<FetchedData[]>([]);
@@ -16,7 +16,7 @@ const App: React.FC = () => {
 
 
     useEffect(()  : void => {
-        fetchingData({per_page: 5})
+        fetchingMainPageData()
             .then ((response: Response) => response.json())
             .then ((responseBody: any) => {
                 setPageData(responseBody.data);
@@ -25,13 +25,13 @@ const App: React.FC = () => {
     }, [])
 
     const filterID = (enteredId: string) : void => {
-        let params;
+        let fetchedData : Promise<Response>;
         if (enteredId) {
-            params = {id: enteredId};
+            fetchedData = fetchingDataFiltered(enteredId)
         } else {
-            params = {per_page: 5}
+            fetchedData = fetchingMainPageData()
         }
-        fetchingData(params)
+        fetchedData
                 .then ((response: Response) => response.json())
                 .then ((responseBody: any) => {
                     setPageData([responseBody.data].flat())
@@ -41,7 +41,7 @@ const App: React.FC = () => {
     const handleNext = () : void => {
         let newPageNumber : number = pageNumber + 1;
         setPageNumber(newPageNumber)
-        fetchingData({page: newPageNumber, per_page: '5'})
+        fetchingDataPaginated(newPageNumber)
             .then ((response) => response.json())
             .then ((responseBody) => {
                 setPageData(responseBody.data)
@@ -53,7 +53,7 @@ const App: React.FC = () => {
     const handlePrev = () : void => {
         let newPageNumber : number = pageNumber - 1;
         setPageNumber(newPageNumber)
-        fetchingData({page: newPageNumber, per_page: '5'})
+        fetchingDataPaginated(newPageNumber)
             .then ((response) => response.json())
             .then ((responseBody) => {
                 setPageData(responseBody.data)
