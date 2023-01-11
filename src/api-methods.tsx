@@ -1,6 +1,9 @@
-const APIParamPerPage = "per_page";
-const APIParamId = 'id';
-const APIParamPage = 'page';
+export const APIParams = {
+    perPage: 'per_page',
+    id: 'id',
+    page: 'page',
+    totalPages: 'total_pages'
+}
 
 let APIEndpoint: string =  'https://reqres.in/api/products/?'
 
@@ -9,15 +12,15 @@ const fetchingData = (params: {}) : Promise<Response> => {
 }
 
 export const fetchingMainPageData = () : Promise<Response> => {
-    return fetchingData({[APIParamPerPage] : 5 })
+    return fetchingData({[APIParams.perPage] : 5 })
 }
 
 export const fetchingDataFiltered = (id : string) : Promise<Response> => {
-    return fetchingData({[APIParamId] : id })
+    return fetchingData({[APIParams.id] : id })
 }
 
 export const fetchingDataPaginated = (pageNumber: number) : Promise<Response> => {
-    return fetchingData({[APIParamPage] : pageNumber, [APIParamPerPage] : 5 })
+    return fetchingData({[APIParams.page] : pageNumber, [APIParams.perPage] : 5 })
 }
 
 

@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
+import Container from "@mui/material/Button";
 import IdFilter from "./components/IdFilter";
 import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
-import Modal from "./components/Modal";
+import ItemModal from "./components/ItemModal";
 import { FetchedData } from "./interfaces";
-import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData} from './api-methods';
+import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData, APIParams} from './api-methods';
+
 
 const App: React.FC = () => {
     const [pageData, setPageData] = useState<FetchedData[]>([]);
@@ -46,7 +48,7 @@ const App: React.FC = () => {
             .then ((responseBody) => {
                 setPageData(responseBody.data)
                 setPageNumberFromApi(responseBody.page);
-                setTotalPagesFromApi(responseBody.total_pages);
+                setTotalPagesFromApi(responseBody.APIParams.totalPages);
             })
     }
 
@@ -58,7 +60,7 @@ const App: React.FC = () => {
             .then ((responseBody) => {
                 setPageData(responseBody.data)
                 setPageNumberFromApi(responseBody.page);
-                setTotalPagesFromApi(responseBody.total_pages);
+                setTotalPagesFromApi(responseBody.APIParams.totalPages);
             })
     }
 
@@ -80,7 +82,7 @@ const App: React.FC = () => {
                 pageNumberFromApi = {pageNumberFromApi}
                 totalPagesFromApi = {totalPagesFromApi}
                 pageData={pageData}/>
-            <Modal
+            <ItemModal
                 isOpen={isModalOpen}
                 onClose={onClose}
                 dataForModal={dataForModal}/>

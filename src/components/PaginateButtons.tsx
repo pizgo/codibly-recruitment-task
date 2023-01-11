@@ -1,5 +1,8 @@
 import React from "react";
 import { FetchedData } from "../interfaces";
+import Button from "@mui/material/Button";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 interface PaginateButtonsProps  {
     handlePrev: () => void;
@@ -15,8 +18,15 @@ const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
 
     return (
          <>
-             {isNotFirstPage && <button onClick={props.handlePrev}>Prev</button>}
-             {isNotLastPage && <button onClick={props.handleNext}>Next</button>}
+             {isNotFirstPage && <Button
+                                    variant='contained'
+                                    startIcon={<ArrowBackIosNewIcon/>}
+                                    onClick={props.handlePrev}/>}
+             {isNotLastPage && <Button
+                                    variant='contained'
+                                    startIcon={<ArrowForwardIosIcon/>}
+                                    onClick={props.handleNext}/>}
+
          </>
      )
 }
