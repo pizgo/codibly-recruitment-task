@@ -5,7 +5,7 @@ import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
 import { FetchedData } from "./interfaces";
-import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData, APIParams} from './api-methods';
+import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData} from './api-methods';
 
 
 const App: React.FC = () => {
@@ -48,7 +48,7 @@ const App: React.FC = () => {
             .then ((responseBody) => {
                 setPageData(responseBody.data)
                 setPageNumberFromApi(responseBody.page);
-                setTotalPagesFromApi(responseBody.APIParams.totalPages);
+                setTotalPagesFromApi(responseBody.total);
             })
     }
 
@@ -60,7 +60,7 @@ const App: React.FC = () => {
             .then ((responseBody) => {
                 setPageData(responseBody.data)
                 setPageNumberFromApi(responseBody.page);
-                setTotalPagesFromApi(responseBody.APIParams.totalPages);
+                setTotalPagesFromApi(responseBody.total);
             })
     }
 
@@ -71,7 +71,8 @@ const App: React.FC = () => {
     const onClose = () => setIsModalOpen(false);
 
     return (
-        <>
+        <Container>
+            <div>
             <IdFilter filterId= {filterID}/>
             <ProductList
                 pageData={pageData}
@@ -86,7 +87,8 @@ const App: React.FC = () => {
                 isOpen={isModalOpen}
                 onClose={onClose}
                 dataForModal={dataForModal}/>
-        </>
+            </div>
+        </Container>
     )
 }
 

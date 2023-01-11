@@ -1,6 +1,6 @@
 import React from "react";
 import { FetchedData } from "../interfaces";
-import {Table, TableBody, TableRow, TableCell} from "@mui/material";
+import {Table, TableBody, TableHead, TableRow, TableCell} from "@mui/material";
 
 
 
@@ -15,6 +15,13 @@ const ProductList: React.FC<ProductListProps> = props => {
         <>
             <div>
                 <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Product ID</TableCell>
+                            <TableCell>Product name</TableCell>
+                            <TableCell>Year</TableCell>
+                        </TableRow>
+                    </TableHead>
                     <TableBody>
                     {props.pageData.map((item, key) =>
                         <TableRow key={item.id}
