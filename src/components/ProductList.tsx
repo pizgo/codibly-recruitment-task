@@ -1,5 +1,7 @@
 import React from "react";
 import { FetchedData } from "../interfaces";
+import {Table, TableBody, TableRow, TableCell} from "@mui/material";
+
 
 
 interface ProductListProps {
@@ -12,19 +14,19 @@ const ProductList: React.FC<ProductListProps> = props => {
     return (
         <>
             <div>
-                <table>
-                    <tbody>
+                <Table>
+                    <TableBody>
                     {props.pageData.map((item, key) =>
-                        <tr key={item.id}
+                        <TableRow key={item.id}
                             style={{background: item.color}}
                             onClick={() => props.modalOpen(item)}>
-                            <td>{item.id}</td>
-                            <td>{item.name}</td>
-                            <td>{item.year}</td>
-                        </tr>
+                            <TableCell>{item.id}</TableCell>
+                            <TableCell>{item.name}</TableCell>
+                            <TableCell>{item.year}</TableCell>
+                        </TableRow>
                     )}
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
             </div>
         </>
     )
