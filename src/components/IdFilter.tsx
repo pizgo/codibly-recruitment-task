@@ -7,14 +7,14 @@ interface IdFilterProps {
 
 const IdFilter: React.FC<IdFilterProps> = (props) => {
 
-    const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-        const enteredId = event.currentTarget.value;
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const enteredId = event.target.value;
         props.filterId(enteredId)
     }
 
     return (
         <form>
-            <input
+            <Input
                 type='number'
                 placeholder='type the ID'
                 onChange={handleChange}
