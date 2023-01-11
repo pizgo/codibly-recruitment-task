@@ -1,9 +1,9 @@
 import React from "react";
-import { fetchedData } from "../interfaces";
+import { FetchedData } from "../interfaces";
 
 
 interface ProductListProps {
-    pageData: fetchedData[],
+    pageData: FetchedData[],
     modalOpen: ({}) => void,
 }
 
@@ -13,6 +13,7 @@ const ProductList: React.FC<ProductListProps> = props => {
         <>
             <div>
                 <table>
+                    <tbody>
                     {props.pageData.map((item, key) =>
                         <tr key={item.id}
                             style={{background: item.color}}
@@ -22,6 +23,7 @@ const ProductList: React.FC<ProductListProps> = props => {
                             <td>{item.year}</td>
                         </tr>
                     )}
+                    </tbody>
                 </table>
             </div>
         </>

@@ -1,12 +1,12 @@
 import React from "react";
-import { fetchedData } from "../interfaces";
+import { FetchedData } from "../interfaces";
 
 interface PaginateButtonsProps  {
     handlePrev: () => void;
     handleNext: () => void;
     pageNumberFromApi: number;
     totalPagesFromApi: number;
-    pageData: fetchedData[];
+    pageData: FetchedData[];
 }
 const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
 

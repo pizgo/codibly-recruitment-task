@@ -1,17 +1,12 @@
 import React from "react";
 import { createPortal } from 'react-dom';
+import {FetchedData} from "../interfaces";
 
 
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
-    dataForModal: {
-        id: number,
-        name: string,
-        year: number,
-        color: string,
-        pantone_value: string
-    }
+    dataForModal: FetchedData
 }
 
 const Modal: React.FC<ModalProps> = (props) => {

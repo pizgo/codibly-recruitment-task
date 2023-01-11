@@ -14,7 +14,7 @@ const IdFilter: React.FC<IdFilterProps> = (props) => {
     return (
         <form>
             <input
-                type='text'
+                type='number'
                 placeholder='type the ID'
                 onChange={handleChange}
                 />
