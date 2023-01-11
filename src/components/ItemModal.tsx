@@ -1,6 +1,6 @@
 import React from "react";
 import {FetchedData} from "../interfaces";
-import {Modal, Box, Typography, TableRow, TableCell} from "@mui/material";
+import {Modal, Box, Typography, Table, TableRow, TableCell} from "@mui/material";
 
 interface ModalProps {
     isOpen: boolean;
@@ -13,13 +13,15 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: 'white',
     boxShadow: 24,
     p: 4,
+   // display: 'flex'
 };
 
 const ItemModal: React.FC<ModalProps> = (props) => {
+
+    if (!props.isOpen) return null
 
     return (
         <Modal
@@ -28,16 +30,15 @@ const ItemModal: React.FC<ModalProps> = (props) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description">
             <Box sx={style}>
-                {/*<Typography id="modal-modal-description">*/}
-                {/*    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.*/}
-                {/*</Typography>*/}
-                <TableRow style={{background: props.dataForModal.color}}>
-                    <TableCell>{props.dataForModal.id}</TableCell>
-                    <TableCell>{props.dataForModal.name}</TableCell>
-                    <TableCell>{props.dataForModal.year}</TableCell>
-                    <TableCell>{props.dataForModal.color}</TableCell>
-                    <TableCell>{props.dataForModal.pantone_value}</TableCell>
-                </TableRow>
+                <Table>
+                    <TableRow style={{background: props.dataForModal.color}}>
+                        <TableCell>{props.dataForModal.id}</TableCell>
+                        <TableCell>{props.dataForModal.name}</TableCell>
+                        <TableCell>{props.dataForModal.year}</TableCell>
+                        <TableCell>{props.dataForModal.color}</TableCell>
+                        <TableCell>{props.dataForModal.pantone_value}</TableCell>
+                    </TableRow>
+                </Table>
             </Box>
         </Modal>
     // sx={{ mt: 2 }}
