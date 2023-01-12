@@ -1,6 +1,7 @@
 import React from "react";
-import {FetchedData} from "../interfaces";
-import {Modal, Box, Typography, Table, TableBody, TableRow, TableCell, TableHead} from "@mui/material";
+import { FetchedData } from "../interfaces";
+import { productDescriptionModal } from "../stringResources";
+import { Modal, Box, Table, TableBody, TableRow, TableCell, TableHead } from "@mui/material";
 
 interface ModalProps {
     isOpen: boolean;
@@ -16,7 +17,6 @@ const style = {
     bgcolor: 'white',
     boxShadow: 24,
     p: 4,
-   // display: 'flex'
 };
 
 const ItemModal: React.FC<ModalProps> = (props) => {
@@ -32,11 +32,9 @@ const ItemModal: React.FC<ModalProps> = (props) => {
                 <Table aria-label='modal-table' sx = {{border: 1}}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Product ID</TableCell>
-                            <TableCell>Product name</TableCell>
-                            <TableCell>Year</TableCell>
-                            <TableCell>Color</TableCell>
-                            <TableCell>Pantone value</TableCell>
+                            {productDescriptionModal.map((desc, key) =>
+                                <TableCell key={desc}>{desc}</TableCell>
+                            )}
                         </TableRow>
                     </TableHead>
                     <TableBody>

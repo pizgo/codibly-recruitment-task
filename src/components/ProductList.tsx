@@ -1,7 +1,7 @@
 import React from "react";
 import { FetchedData } from "../interfaces";
-import {Table, TableBody, TableHead, TableRow, TableCell} from "@mui/material";
-
+import { Table, TableBody, TableHead, TableRow, TableCell } from "@mui/material";
+import { productDescriptionMain } from "../stringResources";
 
 
 interface ProductListProps {
@@ -11,15 +11,16 @@ interface ProductListProps {
 
 const ProductList: React.FC<ProductListProps> = props => {
 
+
     return (
         <>
             <div>
                 <Table aria-label='table' sx = {{mt: 4, border: 1}}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Product ID</TableCell>
-                            <TableCell>Product name</TableCell>
-                            <TableCell>Year</TableCell>
+                            {productDescriptionMain.map((desc, key) =>
+                                <TableCell key={desc}>{desc}</TableCell>
+                            )}
                         </TableRow>
                     </TableHead>
                     <TableBody>

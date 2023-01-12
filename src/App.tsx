@@ -5,7 +5,7 @@ import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
 import { FetchedData } from "./interfaces";
-import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData, checkError} from './api-methods';
+import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData, checkError} from './apiMethods';
 import {connectionError, noIDError} from './stringResources';
 
 
@@ -31,12 +31,8 @@ const App: React.FC = () => {
     }, [])
 
     const filterID = (enteredId: string) : void => {
-        let fetchedData : Promise<Response>;
-        if (enteredId) {
-            fetchedData = fetchingDataFiltered(enteredId)
-        } else {
-            fetchedData = fetchingMainPageData()
-        }
+        const fetchedData: Promise<Response> = enteredId ?
+            fetchingDataFiltered(enteredId) : fetchingMainPageData();
         fetchedData
             .then (checkError)
             .then ((responseBody: any) => {
@@ -49,7 +45,7 @@ const App: React.FC = () => {
     }
 
     const handleNext = () : void => {
-        let newPageNumber : number = pageNumber + 1;
+        const newPageNumber : number = pageNumber + 1;
         setPageNumber(newPageNumber)
         fetchingDataPaginated(newPageNumber)
             .then (checkError)
@@ -64,7 +60,7 @@ const App: React.FC = () => {
     }
 
     const handlePrev = () : void => {
-        let newPageNumber : number = pageNumber - 1;
+        const newPageNumber : number = pageNumber - 1;
         setPageNumber(newPageNumber)
         fetchingDataPaginated(newPageNumber)
             .then (checkError)

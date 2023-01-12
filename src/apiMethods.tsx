@@ -1,6 +1,6 @@
 import {APIParams} from "./stringResources";
 
-let APIEndpoint: string =  'https://reqres.in/api/products/?'
+const APIEndpoint: string =  'https://reqres.in/api/products/?'
 
 const fetchingData = (params: {}) : Promise<Response> => {
     return fetch(APIEndpoint + new URLSearchParams(params))

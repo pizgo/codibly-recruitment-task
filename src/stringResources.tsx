@@ -7,3 +7,6 @@ export const APIParams = {
     page: 'page',
     totalPages: 'total_pages'
 }
+
+export const productDescriptionMain = ['Product ID', 'Name', 'Year']
+export const productDescriptionModal = ['Product ID', 'Name', 'Year', 'Color', 'Pantone value']
