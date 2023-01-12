@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Container, Typography} from "@mui/material/";
+import {Container, Alert} from "@mui/material/";
 import IdFilter from "./components/IdFilter";
 import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
@@ -86,7 +86,10 @@ const App: React.FC = () => {
 
     return (
         <Container sx={{width: 700, mt: 5}}>
-            <Typography>{errorMessage}</Typography>
+            {errorMessage &&
+                <Alert severity='error'
+                    sx={{mb: 3}}>
+                    {errorMessage}</Alert>}
             <IdFilter filterId= {filterID}/>
             <ProductList
                 pageData={pageData}
