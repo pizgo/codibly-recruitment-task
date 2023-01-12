@@ -15,7 +15,7 @@ interface PaginateButtonsProps  {
 
 
 const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
-    
+
     return (
         <Container sx={{display: 'flex', justifyContent: 'space-between', mt: 2}}>
             <Button
