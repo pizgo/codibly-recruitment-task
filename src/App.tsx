@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Container} from "@mui/material/";
+import {Container, Typography} from "@mui/material/";
 import IdFilter from "./components/IdFilter";
 import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
 import { FetchedData } from "./interfaces";
-import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData} from './api-methods';
+import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData, checkError} from './api-methods';
+import {connectionError, noIDError} from './stringResources';
 
 
 const App: React.FC = () => {
@@ -15,14 +16,17 @@ const App: React.FC = () => {
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [dataForModal, setDataForModal]= useState<any>();
+    const [errorMessage, setErrorMessage]= useState<any>();
 
 
     useEffect(()  : void => {
         fetchingMainPageData()
-            .then ((response: Response) => response.json())
+            .then (checkError)
             .then ((responseBody: any) => {
                 setPageData(responseBody.data);
-                console.log(responseBody)
+            })
+            .catch( (error) => {
+                setErrorMessage(connectionError)
             })
     }, [])
 
@@ -34,21 +38,28 @@ const App: React.FC = () => {
             fetchedData = fetchingMainPageData()
         }
         fetchedData
-                .then ((response: Response) => response.json())
-                .then ((responseBody: any) => {
+            .then (checkError)
+            .then ((responseBody: any) => {
                     setPageData([responseBody.data].flat())
-                })
+                    setErrorMessage('')
+            })
+            .catch ((error) => {
+                    setErrorMessage(noIDError)
+        })
     }
 
     const handleNext = () : void => {
         let newPageNumber : number = pageNumber + 1;
         setPageNumber(newPageNumber)
         fetchingDataPaginated(newPageNumber)
-            .then ((response) => response.json())
+            .then (checkError)
             .then ((responseBody) => {
                 setPageData(responseBody.data)
                 setPageNumberFromApi(responseBody.page);
                 setTotalPagesFromApi(responseBody.total_pages);
+            })
+            .catch( (error) => {
+                setErrorMessage(connectionError)
             })
     }
 
@@ -56,11 +67,14 @@ const App: React.FC = () => {
         let newPageNumber : number = pageNumber - 1;
         setPageNumber(newPageNumber)
         fetchingDataPaginated(newPageNumber)
-            .then ((response) => response.json())
+            .then (checkError)
             .then ((responseBody) => {
                 setPageData(responseBody.data)
                 setPageNumberFromApi(responseBody.page);
                 setTotalPagesFromApi(responseBody.total_pages);
+            })
+            .catch( (error) => {
+                setErrorMessage(connectionError)
             })
     }
 
@@ -72,7 +86,7 @@ const App: React.FC = () => {
 
     return (
         <Container sx={{width: 700, mt: 5}}>
-            <div>
+            <Typography>{errorMessage}</Typography>
             <IdFilter filterId= {filterID}/>
             <ProductList
                 pageData={pageData}
@@ -87,7 +101,6 @@ const App: React.FC = () => {
                 isOpen={isModalOpen}
                 onClose={onClose}
                 dataForModal={dataForModal}/>
-            </div>
         </Container>
     )
 }
