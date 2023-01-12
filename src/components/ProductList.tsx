@@ -14,7 +14,7 @@ const ProductList: React.FC<ProductListProps> = props => {
     return (
         <>
             <div>
-                <Table>
+                <Table aria-label='table' sx = {{mt: 4, border: 1}}>
                     <TableHead>
                         <TableRow>
                             <TableCell>Product ID</TableCell>

@@ -48,7 +48,7 @@ const App: React.FC = () => {
             .then ((responseBody) => {
                 setPageData(responseBody.data)
                 setPageNumberFromApi(responseBody.page);
-                setTotalPagesFromApi(responseBody.total);
+                setTotalPagesFromApi(responseBody.total_pages);
             })
     }
 
@@ -60,7 +60,7 @@ const App: React.FC = () => {
             .then ((responseBody) => {
                 setPageData(responseBody.data)
                 setPageNumberFromApi(responseBody.page);
-                setTotalPagesFromApi(responseBody.total);
+                setTotalPagesFromApi(responseBody.total_pages);
             })
     }
 
@@ -71,7 +71,7 @@ const App: React.FC = () => {
     const onClose = () => setIsModalOpen(false);
 
     return (
-        <Container>
+        <Container sx={{width: 700, mt: 5}}>
             <div>
             <IdFilter filterId= {filterID}/>
             <ProductList
