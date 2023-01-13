@@ -26,7 +26,7 @@ const ProductList: React.FC<ProductListProps> = props => {
                     <TableBody>
                     {props.pageData.map((item, key) =>
                         <TableRow key={item.id}
-                            style={{background: item.color}}
+                            style={{background: item.color, cursor: 'pointer'}}
                             onClick={() => props.modalOpen(item)}>
                             <TableCell>{item.id}</TableCell>
                             <TableCell>{item.name}</TableCell>

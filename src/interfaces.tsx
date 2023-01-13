@@ -5,4 +5,3 @@ export interface FetchedData {
     color: string,
     pantone_value: string,
 }
-

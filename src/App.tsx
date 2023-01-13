@@ -6,7 +6,7 @@ import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
 import { FetchedData } from "./interfaces";
 import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData, checkError} from './apiMethods';
-import {connectionError, noIDError} from './stringResources';
+// import {connectionError, noIDError} from './stringResources';
 
 
 const App: React.FC = () => {
@@ -21,12 +21,12 @@ const App: React.FC = () => {
 
     useEffect(()  : void => {
         fetchingMainPageData()
-            .then (checkError)
+            .then ( checkError)
             .then ((responseBody: any) => {
                 setPageData(responseBody.data);
             })
             .catch( (error) => {
-                setErrorMessage(connectionError)
+                setErrorMessage(error.message)
             })
     }, [])
 
@@ -37,10 +37,10 @@ const App: React.FC = () => {
             .then (checkError)
             .then ((responseBody: any) => {
                     setPageData([responseBody.data].flat())
-                    setErrorMessage('')
+                    setErrorMessage('');
             })
             .catch ((error) => {
-                    setErrorMessage(noIDError)
+                setErrorMessage(error.message)
         })
     }
 
@@ -55,7 +55,7 @@ const App: React.FC = () => {
                 setTotalPagesFromApi(responseBody.total_pages);
             })
             .catch( (error) => {
-                setErrorMessage(connectionError)
+                setErrorMessage(error.message)
             })
     }
 
@@ -70,7 +70,7 @@ const App: React.FC = () => {
                 setTotalPagesFromApi(responseBody.total_pages);
             })
             .catch( (error) => {
-                setErrorMessage(connectionError)
+                setErrorMessage(error.message)
             })
     }
 
