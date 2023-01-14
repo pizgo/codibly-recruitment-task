@@ -27,6 +27,7 @@ const App: React.FC = () => {
                 setPageData(responseBody.data);
                 setPageNumberFromApi(responseBody.page);
                 setTotalPagesFromApi(responseBody.total_pages);
+                setErrorMessage("")
             })
             .catch( (error) => {
                 setErrorMessage(error.message)
