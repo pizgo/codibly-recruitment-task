@@ -16,6 +16,7 @@ const App: React.FC = () => {
     const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
     const [dataForModal, setDataForModal]= useState<any>();
     const [errorMessage, setErrorMessage]= useState<any>();
 
@@ -28,9 +29,12 @@ const App: React.FC = () => {
                 setPageNumberFromApi(responseBody.page);
                 setTotalPagesFromApi(responseBody.total_pages);
                 setErrorMessage("")
+                setIsError(false)
             })
             .catch( (error) => {
                 setErrorMessage(error.message)
+                setIsError(true);
+
             });
     };
 
@@ -66,15 +70,15 @@ const App: React.FC = () => {
                     sx={{mb: 3}}>
                     {errorMessage}</Alert>}
             <IdFilter filterId= {filterID}/>
-            <ProductList
+            {!isError && <ProductList
                 pageData={pageData}
-                modalOpen = {modalOpen}/>
-            <PaginateButtons
+                modalOpen = {modalOpen}/>}
+            {!isError &&<PaginateButtons
                 handleNext = {() => handleArrowClick("next")}
                 handlePrev = {() => handleArrowClick("prev")}
                 pageNumberFromApi = {pageNumberFromApi}
                 totalPagesFromApi = {totalPagesFromApi}
-                pageData={pageData}/>
+                pageData={pageData}/>}
             <ItemModal
                 isOpen={isModalOpen}
                 onClose={onClose}
