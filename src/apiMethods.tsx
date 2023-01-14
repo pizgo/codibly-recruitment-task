@@ -1,6 +1,5 @@
 import {
     APIEndpoint,
-    APIParams,
     itemsPerPage,
     connectionError,
     noIDError } from "./stringResources";

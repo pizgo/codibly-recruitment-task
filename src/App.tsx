@@ -44,49 +44,13 @@ const App: React.FC = () => {
         fetchingData(enteredId, 1);
     }
 
-    // const filterID = (enteredId: string) : void => {
-    //     const fetchedData: Promise<Response> = enteredId ?
-    //         fetchingDataFiltered(enteredId) : fetchingMainPageData();
-    //     fetchedData
-    //         .then (checkError)
-    //         .then ((responseBody: any) => {
-    //                 setPageData([responseBody.data].flat())
-    //                 setErrorMessage('');
-    //         })
-    //         .catch ((error) => {
-    //             setErrorMessage(error.message)
-    //     })
-    // }
+    const handleArrowClick = (dir: "prev" | "next") => {
+        const newPageNumber : number =
+            dir === "next" ? pageNumber + 1 : pageNumber - 1;
+        setPageNumber(newPageNumber);
+        fetchingData(id, newPageNumber)
+    }
 
-    // const handleNext = () : void => {
-    //     const newPageNumber : number = pageNumber + 1;
-    //     setPageNumber(newPageNumber)
-    //     fetchingDataPaginated(newPageNumber)
-    //         .then (checkError)
-    //         .then ((responseBody) => {
-    //             setPageData(responseBody.data)
-    //             setPageNumberFromApi(responseBody.page);
-    //             setTotalPagesFromApi(responseBody.total_pages);
-    //         })
-    //         .catch( (error) => {
-    //             setErrorMessage(error.message)
-    //         })
-    // }
-    //
-    // const handlePrev = () : void => {
-    //     const newPageNumber : number = pageNumber - 1;
-    //     setPageNumber(newPageNumber)
-    //     fetchingDataPaginated(newPageNumber)
-    //         .then (checkError)
-    //         .then ((responseBody) => {
-    //             setPageData(responseBody.data)
-    //             setPageNumberFromApi(responseBody.page);
-    //             setTotalPagesFromApi(responseBody.total_pages);
-    //         })
-    //         .catch( (error) => {
-    //             setErrorMessage(error.message)
-    //         })
-    // }
 
     const modalOpen = (item: {}) : void => {
             setIsModalOpen(true);
@@ -104,12 +68,12 @@ const App: React.FC = () => {
             <ProductList
                 pageData={pageData}
                 modalOpen = {modalOpen}/>
-            {/*<PaginateButtons*/}
-            {/*    handleNext = {handleNext}*/}
-            {/*    handlePrev = {handlePrev}*/}
-            {/*    pageNumberFromApi = {pageNumberFromApi}*/}
-            {/*    totalPagesFromApi = {totalPagesFromApi}*/}
-            {/*    pageData={pageData}/>*/}
+            <PaginateButtons
+                handleNext = {() => handleArrowClick("next")}
+                handlePrev = {() => handleArrowClick("prev")}
+                pageNumberFromApi = {pageNumberFromApi}
+                totalPagesFromApi = {totalPagesFromApi}
+                pageData={pageData}/>
             <ItemModal
                 isOpen={isModalOpen}
                 onClose={onClose}
