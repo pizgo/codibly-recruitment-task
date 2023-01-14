@@ -5,12 +5,13 @@ import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
 import { FetchedData } from "./interfaces";
-import {fetchingDataFiltered, fetchingDataPaginated, fetchingMainPageData, checkError} from './apiMethods';
+import { fetchData, checkError} from './apiMethods';
 // import {connectionError, noIDError} from './stringResources';
 
 
 const App: React.FC = () => {
     const [pageData, setPageData] = useState<FetchedData[]>([]);
+    const [id, setId] = useState<string>("")
     const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
     const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -19,60 +20,67 @@ const App: React.FC = () => {
     const [errorMessage, setErrorMessage]= useState<any>();
 
 
-    useEffect(()  : void => {
-        fetchingMainPageData()
-            .then ( checkError)
-            .then ((responseBody: any) => {
+    const fetchingData = ( id: string, page: number ) => {
+        fetchData( {id, page})
+            .then (checkError)
+            .then ((responseBody) => {
                 setPageData(responseBody.data);
+                setPageNumberFromApi(responseBody.page);
+                setTotalPagesFromApi(responseBody.total_pages);
             })
             .catch( (error) => {
                 setErrorMessage(error.message)
-            })
+            });
+    };
+
+    useEffect(()  : void => {
+       fetchingData(id, pageNumber)
+        console.log(pageData)
     }, [])
 
-    const filterID = (enteredId: string) : void => {
-        const fetchedData: Promise<Response> = enteredId ?
-            fetchingDataFiltered(enteredId) : fetchingMainPageData();
-        fetchedData
-            .then (checkError)
-            .then ((responseBody: any) => {
-                    setPageData([responseBody.data].flat())
-                    setErrorMessage('');
-            })
-            .catch ((error) => {
-                setErrorMessage(error.message)
-        })
-    }
+    // const filterID = (enteredId: string) : void => {
+    //     const fetchedData: Promise<Response> = enteredId ?
+    //         fetchingDataFiltered(enteredId) : fetchingMainPageData();
+    //     fetchedData
+    //         .then (checkError)
+    //         .then ((responseBody: any) => {
+    //                 setPageData([responseBody.data].flat())
+    //                 setErrorMessage('');
+    //         })
+    //         .catch ((error) => {
+    //             setErrorMessage(error.message)
+    //     })
+    // }
 
-    const handleNext = () : void => {
-        const newPageNumber : number = pageNumber + 1;
-        setPageNumber(newPageNumber)
-        fetchingDataPaginated(newPageNumber)
-            .then (checkError)
-            .then ((responseBody) => {
-                setPageData(responseBody.data)
-                setPageNumberFromApi(responseBody.page);
-                setTotalPagesFromApi(responseBody.total_pages);
-            })
-            .catch( (error) => {
-                setErrorMessage(error.message)
-            })
-    }
-
-    const handlePrev = () : void => {
-        const newPageNumber : number = pageNumber - 1;
-        setPageNumber(newPageNumber)
-        fetchingDataPaginated(newPageNumber)
-            .then (checkError)
-            .then ((responseBody) => {
-                setPageData(responseBody.data)
-                setPageNumberFromApi(responseBody.page);
-                setTotalPagesFromApi(responseBody.total_pages);
-            })
-            .catch( (error) => {
-                setErrorMessage(error.message)
-            })
-    }
+    // const handleNext = () : void => {
+    //     const newPageNumber : number = pageNumber + 1;
+    //     setPageNumber(newPageNumber)
+    //     fetchingDataPaginated(newPageNumber)
+    //         .then (checkError)
+    //         .then ((responseBody) => {
+    //             setPageData(responseBody.data)
+    //             setPageNumberFromApi(responseBody.page);
+    //             setTotalPagesFromApi(responseBody.total_pages);
+    //         })
+    //         .catch( (error) => {
+    //             setErrorMessage(error.message)
+    //         })
+    // }
+    //
+    // const handlePrev = () : void => {
+    //     const newPageNumber : number = pageNumber - 1;
+    //     setPageNumber(newPageNumber)
+    //     fetchingDataPaginated(newPageNumber)
+    //         .then (checkError)
+    //         .then ((responseBody) => {
+    //             setPageData(responseBody.data)
+    //             setPageNumberFromApi(responseBody.page);
+    //             setTotalPagesFromApi(responseBody.total_pages);
+    //         })
+    //         .catch( (error) => {
+    //             setErrorMessage(error.message)
+    //         })
+    // }
 
     const modalOpen = (item: {}) : void => {
             setIsModalOpen(true);
@@ -86,16 +94,16 @@ const App: React.FC = () => {
                 <Alert severity='error'
                     sx={{mb: 3}}>
                     {errorMessage}</Alert>}
-            <IdFilter filterId= {filterID}/>
+            {/*<IdFilter filterId= {filterID}/>*/}
             <ProductList
                 pageData={pageData}
                 modalOpen = {modalOpen}/>
-            <PaginateButtons
-                handleNext = {handleNext}
-                handlePrev = {handlePrev}
-                pageNumberFromApi = {pageNumberFromApi}
-                totalPagesFromApi = {totalPagesFromApi}
-                pageData={pageData}/>
+            {/*<PaginateButtons*/}
+            {/*    handleNext = {handleNext}*/}
+            {/*    handlePrev = {handlePrev}*/}
+            {/*    pageNumberFromApi = {pageNumberFromApi}*/}
+            {/*    totalPagesFromApi = {totalPagesFromApi}*/}
+            {/*    pageData={pageData}/>*/}
             <ItemModal
                 isOpen={isModalOpen}
                 onClose={onClose}

@@ -1,20 +1,19 @@
-import { APIEndpoint, APIParams, connectionError, noIDError, itemsPerPage } from "./stringResources";
+import {
+    APIEndpoint,
+    APIParams,
+    itemsPerPage,
+    connectionError,
+    noIDError } from "./stringResources";
 
 
 const fetchingData = (params: {}) : Promise<Response> => {
     return fetch(APIEndpoint + new URLSearchParams(params))
 }
 
-export const fetchingMainPageData = () : Promise<Response> => {
-    return fetchingData({[APIParams.perPage] : itemsPerPage })
-}
-
-export const fetchingDataFiltered = (id : string) : Promise<Response> => {
-    return fetchingData({[APIParams.id] : id })
-}
-
-export const fetchingDataPaginated = (pageNumber: number) : Promise<Response> => {
-    return fetchingData({[APIParams.page] : pageNumber, [APIParams.perPage] : itemsPerPage })
+export const fetchData = (params: {
+    id : string,
+    page : number }) : Promise<Response> => {
+    return fetchingData({...params, per_page: itemsPerPage})
 }
 
 export const checkError = (response: Response) => {
