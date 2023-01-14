@@ -75,8 +75,8 @@ const App: React.FC = () => {
     }
 
     const modalOpen = (item: {}) : void => {
-        setIsModalOpen(true);
-        setDataForModal(item);
+            setIsModalOpen(true);
+            setDataForModal(item);
     }
     const onClose = () => setIsModalOpen(false);
 

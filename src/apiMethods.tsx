@@ -1,6 +1,5 @@
-import {APIParams, connectionError, noIDError, itemsPerPage} from "./stringResources";
+import { APIEndpoint, APIParams, connectionError, noIDError, itemsPerPage } from "./stringResources";
 
-const APIEndpoint: string =  'https://reqres.in/api/products/?'
 
 const fetchingData = (params: {}) : Promise<Response> => {
     return fetch(APIEndpoint + new URLSearchParams(params))
