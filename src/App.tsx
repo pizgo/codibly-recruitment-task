@@ -38,6 +38,12 @@ const App: React.FC = () => {
         console.log(pageData)
     }, [])
 
+    const filterID = (enteredId : string) : void => {
+        setId(enteredId);
+        setPageNumber(1);
+        fetchingData(enteredId, 1);
+    }
+
     // const filterID = (enteredId: string) : void => {
     //     const fetchedData: Promise<Response> = enteredId ?
     //         fetchingDataFiltered(enteredId) : fetchingMainPageData();
@@ -94,7 +100,7 @@ const App: React.FC = () => {
                 <Alert severity='error'
                     sx={{mb: 3}}>
                     {errorMessage}</Alert>}
-            {/*<IdFilter filterId= {filterID}/>*/}
+            <IdFilter filterId= {filterID}/>
             <ProductList
                 pageData={pageData}
                 modalOpen = {modalOpen}/>

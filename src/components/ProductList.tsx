@@ -11,6 +11,16 @@ interface ProductListProps {
 
 const ProductList: React.FC<ProductListProps> = props => {
 
+    const tableRow = (item: FetchedData) => (
+        <TableRow key={item.id}
+                  style={{background: item.color, cursor: 'pointer'}}
+                  onClick={() => props.modalOpen(item)}>
+            <TableCell>{item.id}</TableCell>
+            <TableCell>{item.name}</TableCell>
+            <TableCell>{item.year}</TableCell>
+        </TableRow>
+    )
+
 
     return (
         <>
@@ -24,15 +34,9 @@ const ProductList: React.FC<ProductListProps> = props => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {props.pageData.map((item, key) =>
-                        <TableRow key={item.id}
-                            style={{background: item.color, cursor: 'pointer'}}
-                            onClick={() => props.modalOpen(item)}>
-                            <TableCell>{item.id}</TableCell>
-                            <TableCell>{item.name}</TableCell>
-                            <TableCell>{item.year}</TableCell>
-                        </TableRow>
-                    )}
+                    {Array.isArray(props.pageData) ?
+                        props.pageData.map((item, key) => tableRow(item))
+                        : tableRow(props.pageData)}
                     </TableBody>
                 </Table>
             </div>
