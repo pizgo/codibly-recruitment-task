@@ -40,7 +40,6 @@ const App: React.FC = () => {
 
     useEffect(()  : void => {
        fetchingData(id, pageNumber)
-        console.log(pageData)
     }, [])
 
     const filterID = (enteredId : string) : void => {
@@ -73,7 +72,7 @@ const App: React.FC = () => {
             {!isError && <ProductList
                 pageData={pageData}
                 modalOpen = {modalOpen}/>}
-            {!isError &&<PaginateButtons
+            {!isError  || id && <PaginateButtons
                 handleNext = {() => handleArrowClick("next")}
                 handlePrev = {() => handleArrowClick("prev")}
                 pageNumberFromApi = {pageNumberFromApi}
