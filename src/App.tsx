@@ -11,7 +11,7 @@ import { fetchData, checkError} from './apiMethods';
 
 const App: React.FC = () => {
     const [pageData, setPageData] = useState<FetchedData[]>([]);
-    const [id, setId] = useState<string>("")
+    const [filteredId, setFilteredId] = useState<string>("")
     const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
     const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -21,7 +21,7 @@ const App: React.FC = () => {
     const [errorMessage, setErrorMessage]= useState<any>();
 
 
-    const fetchingData = ( id: string, page: number ) => {
+    const callForData = ( id: string, page: number ) => {
         fetchData( {id, page})
             .then (checkError)
             .then ((responseBody) => {
@@ -39,20 +39,21 @@ const App: React.FC = () => {
     };
 
     useEffect(()  : void => {
-       fetchingData(id, pageNumber)
+       callForData(filteredId, pageNumber)
     }, [])
 
     const filterID = (enteredId : string) : void => {
-        setId(enteredId);
+        setFilteredId(enteredId);
         setPageNumber(1);
-        fetchingData(enteredId, 1);
+        setPageNumberFromApi(1)
+        callForData(enteredId, 1);
     }
 
     const handleArrowClick = (dir: "prev" | "next") => {
         const newPageNumber : number =
             dir === "next" ? pageNumber + 1 : pageNumber - 1;
         setPageNumber(newPageNumber);
-        fetchingData(id, newPageNumber)
+        callForData(filteredId, newPageNumber)
     }
 
 
@@ -72,9 +73,10 @@ const App: React.FC = () => {
             {!isError && <ProductList
                 pageData={pageData}
                 modalOpen = {modalOpen}/>}
-            {!isError  || id && <PaginateButtons
+            {!errorMessage && <PaginateButtons
                 handleNext = {() => handleArrowClick("next")}
                 handlePrev = {() => handleArrowClick("prev")}
+                filteredId = {filteredId}
                 pageNumberFromApi = {pageNumberFromApi}
                 totalPagesFromApi = {totalPagesFromApi}
                 pageData={pageData}/>}

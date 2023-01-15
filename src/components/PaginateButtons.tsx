@@ -7,6 +7,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 interface PaginateButtonsProps  {
     handlePrev: () => void;
     handleNext: () => void;
+    filteredId: string;
     pageNumberFromApi: number;
     totalPagesFromApi: number;
     pageData: FetchedData[];
@@ -17,11 +18,14 @@ interface PaginateButtonsProps  {
 const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
 
     return (
-        <Container sx={{display: 'flex', justifyContent: 'space-between', mt: 2}}>
+        <Container sx={{display: 'flex',
+                        justifyContent: 'space-between',
+                        mt: 2}}>
             <Button
                     startIcon={<ArrowBackIosNewIcon/>}
                     variant='contained'
-                    style={{ visibility: (props.pageNumberFromApi !== 1) ? 'visible' : 'hidden'}}
+                    style={{ visibility: ((props.pageNumberFromApi !== 1) &&
+                            (!props.filteredId)) ? 'visible' : 'hidden'}}
                     onClick={props.handlePrev}/>
             <Button
                     startIcon={<ArrowForwardIosIcon/>}
