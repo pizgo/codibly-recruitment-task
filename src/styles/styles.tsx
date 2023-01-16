@@ -1,7 +1,7 @@
 export const inputStyle = {
     border: 1,
     p: 1,
-    borderRadius: "10px",
+    borderRadius: "4px",
     outline: "none"
 }
 export const tableCellHeaderStyle = {

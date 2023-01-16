@@ -1,22 +1,28 @@
 import React, {useEffect, useState} from "react";
 import {Container, Alert} from "@mui/material/";
+import { useNavigate } from "react-router-dom"
 import IdFilter from "./components/IdFilter";
 import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
 import { FetchedData } from "./interfaces";
 import { fetchData, checkError} from './apiMethods';
+import { pageNumberParam, idParam } from './urlParams';
+
 
 const App: React.FC = () => {
+
+
     const [pageData, setPageData] = useState<FetchedData[]>([]);
     const [filteredId, setFilteredId] = useState<string>("")
     const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
     const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
-    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [pageNumber, setPageNumber] = useState<number>( pageNumberParam.get("page") ? parseInt("" + pageNumberParam.get('page')) : 1)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
     const [dataForModal, setDataForModal]= useState<any>();
     const [errorMessage, setErrorMessage]= useState<any>();
+    const navigate = useNavigate()
 
     const callForData = ( id: string, page: number ) => {
         fetchData( {id, page})
@@ -38,10 +44,18 @@ const App: React.FC = () => {
        callForData(filteredId, pageNumber)
     }, [])
 
+    const addingUrl = (id : string, page: number) => {
+        navigate({
+            pathname: "",
+            search: (id) ? `?id=${id}` : `?page=${page}`
+        })
+    }
+
     const filterID = (enteredId : string) : void => {
         setFilteredId(enteredId);
         setPageNumber(1);
         setPageNumberFromApi(1)
+        addingUrl(enteredId, pageNumber)
         callForData(enteredId, 1);
     }
 
@@ -49,6 +63,7 @@ const App: React.FC = () => {
         const newPageNumber : number =
             dir === "next" ? pageNumber + 1 : pageNumber - 1;
         setPageNumber(newPageNumber);
+        addingUrl(filteredId, newPageNumber)
         callForData(filteredId, newPageNumber)
     }
 
