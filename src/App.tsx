@@ -6,8 +6,7 @@ import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
 import { FetchedData } from "./interfaces";
 import { fetchData, checkError} from './apiMethods';
-// import {connectionError, noIDError} from './stringResources';
-
+import { mainContainer } from "./styles/styles";
 
 const App: React.FC = () => {
     const [pageData, setPageData] = useState<FetchedData[]>([]);
@@ -19,7 +18,6 @@ const App: React.FC = () => {
     const [isError, setIsError] = useState<boolean>(false);
     const [dataForModal, setDataForModal]= useState<any>();
     const [errorMessage, setErrorMessage]= useState<any>();
-
 
     const callForData = ( id: string, page: number ) => {
         fetchData( {id, page})
@@ -34,7 +32,6 @@ const App: React.FC = () => {
             .catch( (error) => {
                 setErrorMessage(error.message)
                 setIsError(true);
-
             });
     };
 
@@ -56,7 +53,6 @@ const App: React.FC = () => {
         callForData(filteredId, newPageNumber)
     }
 
-
     const modalOpen = (item: {}) : void => {
             setIsModalOpen(true);
             setDataForModal(item);
@@ -64,7 +60,7 @@ const App: React.FC = () => {
     const onClose = () => setIsModalOpen(false);
 
     return (
-        <Container sx={{width: 700, mt: 5}}>
+        <Container maxWidth="sm" sx={mainContainer}>
             {errorMessage &&
                 <Alert severity='error'
                     sx={{mb: 3}}>

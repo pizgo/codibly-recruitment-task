@@ -1,5 +1,7 @@
 import React from "react";
-import {Container, Input } from "@mui/material";
+import { Container, Input } from "@mui/material";
+import { inputStyle } from "../styles/styles";
+
 interface IdFilterProps {
     filterId: (enteredId: string) => void;
 }
@@ -15,14 +17,14 @@ const IdFilter: React.FC<IdFilterProps> = (props) => {
         <Container sx={{display: 'flex', justifyContent: 'center'}}>
             <form>
                 <Input
-                    sx = {{border: 1, p: 1}}
+                    sx = {inputStyle}
                     type='number'
+                    id="outlined-number"
                     placeholder="type the product's ID"
                     onChange={handleChange}
                 />
             </form>
         </Container>
-
     )
 }
 

@@ -13,9 +13,8 @@ interface PaginateButtonsProps  {
     pageData: FetchedData[];
 }
 
-
-
 const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
+
 
     return (
         <Container sx={{display: 'flex',

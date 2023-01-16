@@ -1,8 +1,8 @@
 import React from "react";
 import { FetchedData } from "../interfaces";
-import { Table, TableBody, TableHead, TableRow, TableCell } from "@mui/material";
+import { TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper } from "@mui/material";
 import { productDescriptionMain } from "../stringResources";
-
+import { productListStyle } from "../styles/styles";
 
 interface ProductListProps {
     pageData: FetchedData[],
@@ -13,23 +13,23 @@ const ProductList: React.FC<ProductListProps> = props => {
 
     const tableRow = (item: FetchedData) => (
         <TableRow key={item.id}
-                  style={{background: item.color, cursor: 'pointer'}}
-                  onClick={() => props.modalOpen(item)}>
-            <TableCell>{item.id}</TableCell>
-            <TableCell>{item.name}</TableCell>
-            <TableCell>{item.year}</TableCell>
+                  style={{background: item.color, cursor: 'pointer', fontWeight: 'bold'}}
+                  onClick={() => props.modalOpen(item)}
+                  >
+            <TableCell align="center" style={{width: "20%"}}>{item.id}</TableCell>
+            <TableCell align="center">{item.name}</TableCell>
+            <TableCell align="center">{item.year}</TableCell>
         </TableRow>
     )
 
-
     return (
         <>
-            <div>
-                <Table aria-label='table' sx = {{mt: 4, border: 1}}>
+            <TableContainer component={Paper} sx={{mt: 5}}>
+                <Table  aria-label='simple-table' sx = {productListStyle}>
                     <TableHead>
                         <TableRow>
                             {productDescriptionMain.map((desc, key) =>
-                                <TableCell key={desc}>{desc}</TableCell>
+                                <TableCell align="center" key={desc} sx={{fontWeight: "bold"}}>{desc}</TableCell>
                             )}
                         </TableRow>
                     </TableHead>
@@ -39,7 +39,7 @@ const ProductList: React.FC<ProductListProps> = props => {
                         : tableRow(props.pageData)}
                     </TableBody>
                 </Table>
-            </div>
+            </TableContainer>
         </>
     )
 }
