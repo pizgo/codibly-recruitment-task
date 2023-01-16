@@ -23,13 +23,13 @@ const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
             <Button
                     startIcon={<ArrowBackIosNewIcon/>}
                     variant='contained'
-                    style={{ visibility: ((props.pageNumberFromApi !== 1) &&
+                    sx={{ visibility: ((props.pageNumberFromApi !== 1) &&
                             (!props.filteredId)) ? 'visible' : 'hidden'}}
                     onClick={props.handlePrev}/>
             <Button
                     startIcon={<ArrowForwardIosIcon/>}
                     variant='contained'
-                    style={{ visibility: (props.totalPagesFromApi !== props.pageNumberFromApi) ? 'visible' : 'hidden'}}
+                    sx={{ visibility: (props.totalPagesFromApi !== props.pageNumberFromApi) ? 'visible' : 'hidden'}}
                     onClick={props.handleNext}/>
         </Container>
      )

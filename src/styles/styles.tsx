@@ -1,17 +1,12 @@
-export const mainContainer = {
-    mt: 5,
-}
-
 export const inputStyle = {
     border: 1,
     p: 1,
     borderRadius: "10px",
     outline: "none"
 }
-
-export const productListStyle = {
+export const tableCellHeaderStyle = {
+    fontWeight: "bold"
 }
-
 export const modalStyle = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -20,5 +15,6 @@ export const modalStyle = {
     width: 500,
     bgcolor: 'white',
     boxShadow: 24,
+    outline: "none",
     p: 4,
 }

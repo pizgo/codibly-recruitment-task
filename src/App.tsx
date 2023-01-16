@@ -6,7 +6,6 @@ import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
 import { FetchedData } from "./interfaces";
 import { fetchData, checkError} from './apiMethods';
-import { mainContainer } from "./styles/styles";
 
 const App: React.FC = () => {
     const [pageData, setPageData] = useState<FetchedData[]>([]);
@@ -60,7 +59,7 @@ const App: React.FC = () => {
     const onClose = () => setIsModalOpen(false);
 
     return (
-        <Container maxWidth="sm" sx={mainContainer}>
+        <Container maxWidth="sm" sx={{mt: 5}}>
             {errorMessage &&
                 <Alert severity='error'
                     sx={{mb: 3}}>

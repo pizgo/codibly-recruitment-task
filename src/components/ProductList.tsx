@@ -2,7 +2,7 @@ import React from "react";
 import { FetchedData } from "../interfaces";
 import { TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper } from "@mui/material";
 import { productDescriptionMain } from "../stringResources";
-import { productListStyle } from "../styles/styles";
+import { tableCellHeaderStyle } from "../styles/styles";
 
 interface ProductListProps {
     pageData: FetchedData[],
@@ -13,10 +13,10 @@ const ProductList: React.FC<ProductListProps> = props => {
 
     const tableRow = (item: FetchedData) => (
         <TableRow key={item.id}
-                  style={{background: item.color, cursor: 'pointer', fontWeight: 'bold'}}
+                  sx={{background: item.color, cursor: 'pointer'}}
                   onClick={() => props.modalOpen(item)}
                   >
-            <TableCell align="center" style={{width: "20%"}}>{item.id}</TableCell>
+            <TableCell align="center" sx={{width: "20%"}}>{item.id}</TableCell>
             <TableCell align="center">{item.name}</TableCell>
             <TableCell align="center">{item.year}</TableCell>
         </TableRow>
@@ -25,11 +25,11 @@ const ProductList: React.FC<ProductListProps> = props => {
     return (
         <>
             <TableContainer component={Paper} sx={{mt: 5}}>
-                <Table  aria-label='simple-table' sx = {productListStyle}>
+                <Table  aria-label='simple-table'>
                     <TableHead>
                         <TableRow>
                             {productDescriptionMain.map((desc, key) =>
-                                <TableCell align="center" key={desc} sx={{fontWeight: "bold"}}>{desc}</TableCell>
+                                <TableCell align="center" key={desc} sx={tableCellHeaderStyle}>{desc}</TableCell>
                             )}
                         </TableRow>
                     </TableHead>
