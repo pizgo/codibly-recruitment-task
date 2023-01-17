@@ -7,17 +7,17 @@ import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
 import { FetchedData } from "./interfaces";
 import { fetchData, checkError} from './apiMethods';
-import { pageNumberParam, idParam } from './urlParams';
+import { paramToUrl } from './urlParams';
 
 
 const App: React.FC = () => {
 
 
     const [pageData, setPageData] = useState<FetchedData[]>([]);
-    const [filteredId, setFilteredId] = useState<string>("")
+    const [filteredId, setFilteredId] = useState<string>(paramToUrl.get("id") ? ("" + paramToUrl.get('id')) : "")
     const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
     const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
-    const [pageNumber, setPageNumber] = useState<number>( pageNumberParam.get("page") ? parseInt("" + pageNumberParam.get('page')) : 1)
+    const [pageNumber, setPageNumber] = useState<number>( paramToUrl.get("page") ? parseInt("" + paramToUrl.get('page')) : 1)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
     const [dataForModal, setDataForModal]= useState<any>();
