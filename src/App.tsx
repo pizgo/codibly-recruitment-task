@@ -10,13 +10,12 @@ import { paramToUrl } from './consts/urlParams';
 import {useNavigateSearch} from "./hooks/UseNavigateSearch";
 
 const App: React.FC = () => {
-    const [pageData, setPageData] = useState<Product[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [filteredId, setFilteredId] = useState<string>(paramToUrl.get("id") ? ("" + paramToUrl.get('id')) : "")
     const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
     const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
     const [pageNumber, setPageNumber] = useState<number>( paramToUrl.get("page") ? parseInt("" + paramToUrl.get('page')) : 1)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [isError, setIsError] = useState<boolean>(false);
     const [chosenProduct, setChosenProduct]= useState<Product>();
     const [errorMessage, setErrorMessage]= useState<any>();
     const navigateSearch = useNavigateSearch()
@@ -25,15 +24,13 @@ const App: React.FC = () => {
         fetchData( {id, page})
             .then (checkError)
             .then ((responseBody) => {
-                setPageData(responseBody.data);
+                setProducts(responseBody.data);
                 setPageNumberFromApi(responseBody.page);
                 setTotalPagesFromApi(responseBody.total_pages);
                 setErrorMessage("")
-                setIsError(false)
             })
             .catch( (error) => {
                 setErrorMessage(error.message)
-                setIsError(true);
             });
     };
 
@@ -71,9 +68,9 @@ const App: React.FC = () => {
                     {errorMessage}</Alert>}
             <ProductSearchField onChangeInput= {handleFilterIdChange}
                                 value={filteredId}/>
-            {!isError && <ProductList
-                pageData={pageData}
-                modalOpen = {handleChooseProduct}/>}
+            {!errorMessage && <ProductList
+                products={products}
+                onChooseProduct= {handleChooseProduct}/>}
             {!errorMessage && <PaginateButtons
                 onHandleNext= {() => handleArrowClick("next")}
                 onHandlePrev= {() => handleArrowClick("prev")}

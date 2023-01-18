@@ -1,26 +1,46 @@
 import React from "react";
-import { Product } from "../types/interfaces";
-import { TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper } from "@mui/material";
+import {
+    TableContainer,
+    Table,
+    TableBody,
+    TableHead,
+    TableRow,
+    TableCell,
+    Paper } from "@mui/material";
 import { productDescriptionMain } from "../consts/strings";
+import { Product } from "../types/interfaces";
 
-
-interface ProductListProps {
-    pageData: Product[],
-    modalOpen: (item: Product) => void,
+interface TableRowItemProps {
+    product: Product;
+    onChooseProduct: (item: Product) => void;
 }
 
-const ProductList: React.FC<ProductListProps> = props => {
+const TableRowItem : React.FC<TableRowItemProps>  = ({ product, onChooseProduct }) => {
 
-    const tableRow = (item: Product) => (
-        <TableRow key={item.id}
-                  sx={{background: item.color, cursor: 'pointer'}}
-                  onClick={() => props.modalOpen(item)}
-                  >
-            <TableCell align="center" sx={{width: "20%"}}>{item.id}</TableCell>
-            <TableCell align="center">{item.name}</TableCell>
-            <TableCell align="center">{item.year}</TableCell>
+    const handleChooseProduct = () => {
+        onChooseProduct(product);
+    };
+
+    return (
+        <TableRow
+            sx={{ background: product.color, cursor: "pointer" }}
+            onClick={handleChooseProduct}
+        >
+            <TableCell align="center" sx={{ width: "20%" }}>
+                {product.id}
+            </TableCell>
+            <TableCell align="center">{product.name}</TableCell>
+            <TableCell align="center">{product.year}</TableCell>
         </TableRow>
-    )
+    );
+};
+
+interface ProductListProps {
+    products: Product[],
+    onChooseProduct: (item: Product) => void,
+}
+
+const ProductList: React.FC<ProductListProps> = ({ products, onChooseProduct }) => {
 
     return (
         <>
@@ -34,9 +54,18 @@ const ProductList: React.FC<ProductListProps> = props => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {Array.isArray(props.pageData) ?
-                        props.pageData.map((item, key) => tableRow(item))
-                        : tableRow(props.pageData)}
+                    {Array.isArray(products) ? (
+                        products.map((item, key) => (
+                            <TableRowItem
+                                key={item.id}
+                                product={item}
+                                onChooseProduct={onChooseProduct}/>
+                            ))
+                        ) : (
+                            <TableRowItem
+                                product={products}
+                                onChooseProduct={onChooseProduct}/>
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>
