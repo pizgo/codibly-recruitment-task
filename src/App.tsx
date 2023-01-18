@@ -1,47 +1,32 @@
-import React, {useEffect, useState} from "react";
-import {Container, Alert} from "@mui/material/";
+import React, { useState } from "react";
+import { Container, Alert } from "@mui/material/";
 import ProductSearchField from "./components/ProductSearchField";
 import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
 import SingleProduct from "./components/SingleProduct";
 import { Product } from "./types/interfaces";
-import { fetchData, checkError} from './utils/apiMethods';
-import { paramToUrl } from './consts/urlParams';
-import {useNavigateSearch} from "./hooks/UseNavigateSearch";
+import { searchParams } from './consts/urlParams';
+import { useNavigateSearch } from "./hooks/UseNavigateSearch";
+import { useFetchProducts } from "./hooks/useFetchProducts";
 
 const App: React.FC = () => {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [filteredId, setFilteredId] = useState<string>(paramToUrl.get("id") ? ("" + paramToUrl.get('id')) : "")
-    const [pageNumberFromApi, setPageNumberFromApi] = useState<number>(1);
-    const [totalPagesFromApi, setTotalPagesFromApi] = useState<any>();
-    const [pageNumber, setPageNumber] = useState<number>( paramToUrl.get("page") ? parseInt("" + paramToUrl.get('page')) : 1)
+    const initialProductId = searchParams.get("id") || "";
+    const initialPageNumber = Number(searchParams.get("page")) || 1;
+
+    const { productsState, errorMessage, callForData } = useFetchProducts(
+        initialProductId,
+        initialPageNumber,
+    );
+
+    const [filteredId, setFilteredId] = useState<string>(initialProductId)
+    const [pageNumber, setPageNumber] = useState<number>(initialPageNumber)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [chosenProduct, setChosenProduct]= useState<Product>();
-    const [errorMessage, setErrorMessage]= useState<any>();
     const navigateSearch = useNavigateSearch()
-
-    const callForData = ( id: string, page: number ) => {
-        fetchData( {id, page})
-            .then (checkError)
-            .then ((responseBody) => {
-                setProducts(responseBody.data);
-                setPageNumberFromApi(responseBody.page);
-                setTotalPagesFromApi(responseBody.total_pages);
-                setErrorMessage("")
-            })
-            .catch( (error) => {
-                setErrorMessage(error.message)
-            });
-    };
-
-    useEffect(()  : void => {
-       callForData(filteredId, pageNumber)
-    }, [])
 
     const handleFilterIdChange = (enteredId : string) : void => {
         setFilteredId(enteredId);
         setPageNumber(1);
-        setPageNumberFromApi(1)
         navigateSearch(enteredId, pageNumber)
         callForData(enteredId, 1);
     }
@@ -69,14 +54,14 @@ const App: React.FC = () => {
             <ProductSearchField onChangeInput= {handleFilterIdChange}
                                 value={filteredId}/>
             {!errorMessage && <ProductList
-                products={products}
+                products={productsState ? productsState.data : [] } //todo introduce initial state
                 onChooseProduct= {handleChooseProduct}/>}
             {!errorMessage && <PaginateButtons
                 onHandleNext= {() => handleArrowClick("next")}
                 onHandlePrev= {() => handleArrowClick("prev")}
                 filteredId={filteredId}
-                pageNumberFromApi = {pageNumberFromApi}
-                totalPagesFromApi = {totalPagesFromApi}/>}
+                pageNumberFromApi = {pageNumber}
+                totalPagesFromApi = { productsState ? productsState.total_pages : 0 }/>} //todo introduce initial state
             <SingleProduct
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}

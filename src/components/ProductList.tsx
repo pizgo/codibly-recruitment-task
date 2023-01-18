@@ -24,8 +24,7 @@ const TableRowItem : React.FC<TableRowItemProps>  = ({ product, onChooseProduct 
     return (
         <TableRow
             sx={{ background: product.color, cursor: "pointer" }}
-            onClick={handleChooseProduct}
-        >
+            onClick={handleChooseProduct}>
             <TableCell align="center" sx={{ width: "20%" }}>
                 {product.id}
             </TableCell>
@@ -36,7 +35,7 @@ const TableRowItem : React.FC<TableRowItemProps>  = ({ product, onChooseProduct 
 };
 
 interface ProductListProps {
-    products: Product[],
+    products: Product[] | Product,
     onChooseProduct: (item: Product) => void,
 }
 

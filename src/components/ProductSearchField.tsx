@@ -13,7 +13,7 @@ const style = {
     outline: "none"
 }
 
-const ProductSearchField: React.FC<IdFilterProps> = ({onChangeInput, value}) => {
+const ProductSearchField: React.FC<IdFilterProps> = ({ onChangeInput, value }) => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const enteredId = event.target.value;
