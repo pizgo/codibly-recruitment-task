@@ -1,17 +1,17 @@
 import React from "react";
-import { FetchedData } from "../types/interfaces";
+import { Product } from "../types/interfaces";
 import { TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper } from "@mui/material";
 import { productDescriptionMain } from "../consts/strings";
 
 
 interface ProductListProps {
-    pageData: FetchedData[],
-    modalOpen: (item: FetchedData) => void,
+    pageData: Product[],
+    modalOpen: (item: Product) => void,
 }
 
 const ProductList: React.FC<ProductListProps> = props => {
 
-    const tableRow = (item: FetchedData) => (
+    const tableRow = (item: Product) => (
         <TableRow key={item.id}
                   sx={{background: item.color, cursor: 'pointer'}}
                   onClick={() => props.modalOpen(item)}

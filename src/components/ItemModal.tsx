@@ -1,12 +1,12 @@
 import React from "react";
-import { FetchedData } from "../types/interfaces";
+import { Product } from "../types/interfaces";
 import { productDescriptionModal } from "../consts/strings";
 import { Paper, Modal, Box, TableContainer, Table, TableBody, TableRow, TableCell, TableHead } from "@mui/material";
 
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
-    dataForModal?: FetchedData
+    dataForModal?: Product
 }
 
 const style = {
@@ -25,7 +25,7 @@ const ItemModal: React.FC<ModalProps> = (props) => {
 
     if (!props.isOpen) return null
 
-    const tableRowModal = (dataForModal: FetchedData) => (
+    const tableRowModal = (dataForModal: Product) => (
         <TableRow sx={{background: dataForModal.color}}>
             <TableCell align="center">{dataForModal.id}</TableCell>
             <TableCell align="center">{dataForModal.name}</TableCell>

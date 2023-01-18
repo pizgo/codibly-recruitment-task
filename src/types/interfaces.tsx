@@ -1,4 +1,4 @@
-export interface FetchedData {
+export interface Product {
     id: number,
     name: string,
     year: number,

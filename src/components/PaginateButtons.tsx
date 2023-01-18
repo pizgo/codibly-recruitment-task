@@ -1,5 +1,4 @@
 import React from "react";
-import { FetchedData } from "../types/interfaces";
 import {Container, Button } from "@mui/material";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -10,27 +9,35 @@ interface PaginateButtonsProps  {
     filteredId: string;
     pageNumberFromApi: number;
     totalPagesFromApi: number;
-    pageData: FetchedData[];
 }
 
-const PaginateButtons: React.FC<PaginateButtonsProps> = props => {
+const PaginateButtons: React.FC<PaginateButtonsProps> = (
+    {handlePrev, handleNext, filteredId, pageNumberFromApi, totalPagesFromApi}) => {
+
+    const shouldShowPrevButton = pageNumberFromApi !== 1 && !filteredId;
+    const shouldShowNextButton = totalPagesFromApi !== pageNumberFromApi;
 
 
     return (
-        <Container sx={{display: 'flex',
-                        justifyContent: 'space-between',
-                        mt: 2}}>
-            <Button
-                    startIcon={<ArrowBackIosNewIcon/>}
-                    variant='contained'
-                    sx={{ visibility: ((props.pageNumberFromApi !== 1) &&
-                            (!props.filteredId)) ? 'visible' : 'hidden'}}
-                    onClick={props.handlePrev}/>
-            <Button
-                    startIcon={<ArrowForwardIosIcon/>}
-                    variant='contained'
-                    sx={{ visibility: (props.totalPagesFromApi !== props.pageNumberFromApi) ? 'visible' : 'hidden'}}
-                    onClick={props.handleNext}/>
+        <Container sx={{display: 'flex', justifyContent: 'space-between', mt: 2}}>
+            <div>
+                {shouldShowPrevButton ? (
+                    <Button
+                        startIcon={<ArrowBackIosNewIcon />}
+                        variant="contained"
+                        onClick={handlePrev}
+                    />
+                ) : null}
+            </div>
+            <div>
+                {shouldShowNextButton ? (
+                    <Button
+                        startIcon={<ArrowForwardIosIcon />}
+                        variant="contained"
+                        onClick={handleNext}
+                    />
+                ) : null}
+            </div>
         </Container>
      )
 }
