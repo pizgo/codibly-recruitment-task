@@ -3,7 +3,7 @@ import {Container, Alert} from "@mui/material/";
 import ProductSearchField from "./components/ProductSearchField";
 import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
-import ItemModal from "./components/ItemModal";
+import SingleProduct from "./components/SingleProduct";
 import { Product } from "./types/interfaces";
 import { fetchData, checkError} from './utils/apiMethods';
 import { paramToUrl } from './consts/urlParams';
@@ -77,10 +77,10 @@ const App: React.FC = () => {
                 filteredId={filteredId}
                 pageNumberFromApi = {pageNumberFromApi}
                 totalPagesFromApi = {totalPagesFromApi}/>}
-            <ItemModal
+            <SingleProduct
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
-                dataForModal={chosenProduct}/>
+                product={chosenProduct}/>
         </Container>
     )
 }
