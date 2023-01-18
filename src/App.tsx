@@ -25,16 +25,18 @@ const App: React.FC = () => {
     const navigateSearch = useNavigateSearch()
 
     const handleFilterIdChange = (enteredId : string) : void => {
-        setFilteredId(enteredId);
-        setPageNumber(1);
-        navigateSearch(enteredId, pageNumber)
-        callForData(enteredId, 1);
+        handleInteration(1, enteredId)
     }
 
     const handleArrowClick = (dir: "prev" | "next") => {
         const newPageNumber : number =
             dir === "next" ? pageNumber + 1 : pageNumber - 1;
+        handleInteration(newPageNumber, filteredId)
+    }
+
+    const handleInteration = (newPageNumber : number, filteredId : string ) => {
         setPageNumber(newPageNumber);
+        setFilteredId(filteredId)
         navigateSearch(filteredId, newPageNumber)
         callForData(filteredId, newPageNumber)
     }
