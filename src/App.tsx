@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Container, Alert} from "@mui/material/";
-import IdFilter from "./components/IdFilter";
+import ProductSearchField from "./components/ProductSearchField";
 import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
@@ -69,14 +69,14 @@ const App: React.FC = () => {
                 <Alert severity='error'
                     sx={{mb: 3}}>
                     {errorMessage}</Alert>}
-            <IdFilter filterId= {handleFilterIdChange}
-                        value={filteredId}/>
+            <ProductSearchField onChangeInput= {handleFilterIdChange}
+                                value={filteredId}/>
             {!isError && <ProductList
                 pageData={pageData}
                 modalOpen = {handleChooseProduct}/>}
             {!errorMessage && <PaginateButtons
-                handleNext = {() => handleArrowClick("next")}
-                handlePrev = {() => handleArrowClick("prev")}
+                onHandleNext= {() => handleArrowClick("next")}
+                onHandlePrev= {() => handleArrowClick("prev")}
                 filteredId={filteredId}
                 pageNumberFromApi = {pageNumberFromApi}
                 totalPagesFromApi = {totalPagesFromApi}/>}

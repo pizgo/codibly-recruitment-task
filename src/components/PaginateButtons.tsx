@@ -4,15 +4,15 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 interface PaginateButtonsProps  {
-    handlePrev: () => void;
-    handleNext: () => void;
+    onHandlePrev: () => void;
+    onHandleNext: () => void;
     filteredId: string;
     pageNumberFromApi: number;
     totalPagesFromApi: number;
 }
 
 const PaginateButtons: React.FC<PaginateButtonsProps> = (
-    {handlePrev, handleNext, filteredId, pageNumberFromApi, totalPagesFromApi}) => {
+    {onHandlePrev, onHandleNext, filteredId, pageNumberFromApi, totalPagesFromApi}) => {
 
     const shouldShowPrevButton = pageNumberFromApi !== 1 && !filteredId;
     const shouldShowNextButton = totalPagesFromApi !== pageNumberFromApi;
@@ -25,7 +25,7 @@ const PaginateButtons: React.FC<PaginateButtonsProps> = (
                     <Button
                         startIcon={<ArrowBackIosNewIcon />}
                         variant="contained"
-                        onClick={handlePrev}
+                        onClick={onHandlePrev}
                     />
                 ) : null}
             </div>
@@ -34,7 +34,7 @@ const PaginateButtons: React.FC<PaginateButtonsProps> = (
                     <Button
                         startIcon={<ArrowForwardIosIcon />}
                         variant="contained"
-                        onClick={handleNext}
+                        onClick={onHandleNext}
                     />
                 ) : null}
             </div>

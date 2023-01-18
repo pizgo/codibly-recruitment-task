@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Input } from "@mui/material";
 
 interface IdFilterProps {
-    filterId: (enteredId: string) => void;
+    onChangeInput: (enteredId: string) => void;
     value: string;
 }
 
@@ -13,18 +13,12 @@ const style = {
     outline: "none"
 }
 
-const IdFilter: React.FC<IdFilterProps> = (props) => {
+const ProductSearchField: React.FC<IdFilterProps> = ({onChangeInput, value}) => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const enteredId = event.target.value;
-        //zablokowanie e
-        // if (enteredId === 'e') {
-        //     return;
-        // }
-        props.filterId(enteredId)
+        onChangeInput(enteredId)
     }
-
-
 
     return (
         <Container sx={{display: 'flex', justifyContent: 'center'}}>
@@ -32,7 +26,7 @@ const IdFilter: React.FC<IdFilterProps> = (props) => {
                 <Input
                     sx = {style}
                     type='number'
-                    value={props.value}
+                    value={value}
                     id="outlined-number"
                     placeholder="type the product's ID"
                     onChange={handleChange}
@@ -42,4 +36,4 @@ const IdFilter: React.FC<IdFilterProps> = (props) => {
     )
 }
 
-export default IdFilter;
+export default ProductSearchField;
