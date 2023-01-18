@@ -1,10 +1,16 @@
 import React from "react";
 import { Container, Input } from "@mui/material";
-import { inputStyle } from "../styles/styles";
 
 interface IdFilterProps {
     filterId: (enteredId: string) => void;
     value: string;
+}
+
+const style = {
+    border: 1,
+    p: 1,
+    borderRadius: "4px",
+    outline: "none"
 }
 
 const IdFilter: React.FC<IdFilterProps> = (props) => {
@@ -24,7 +30,7 @@ const IdFilter: React.FC<IdFilterProps> = (props) => {
         <Container sx={{display: 'flex', justifyContent: 'center'}}>
             <form>
                 <Input
-                    sx = {inputStyle}
+                    sx = {style}
                     type='number'
                     value={props.value}
                     id="outlined-number"

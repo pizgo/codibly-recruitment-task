@@ -1,8 +1,8 @@
 import React from "react";
-import { FetchedData } from "../interfaces";
+import { FetchedData } from "../types/interfaces";
 import { TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper } from "@mui/material";
-import { productDescriptionMain } from "../stringResources";
-import { tableCellHeaderStyle } from "../styles/styles";
+import { productDescriptionMain } from "../consts/strings";
+
 
 interface ProductListProps {
     pageData: FetchedData[],
@@ -29,7 +29,7 @@ const ProductList: React.FC<ProductListProps> = props => {
                     <TableHead>
                         <TableRow>
                             {productDescriptionMain.map((desc, key) =>
-                                <TableCell align="center" key={desc} sx={tableCellHeaderStyle}>{desc}</TableCell>
+                                <TableCell align="center" key={desc} sx={{fontWeight: "bold"}}>{desc}</TableCell>
                             )}
                         </TableRow>
                     </TableHead>

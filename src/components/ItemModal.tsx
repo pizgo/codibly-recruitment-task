@@ -1,8 +1,7 @@
 import React from "react";
-import { FetchedData } from "../interfaces";
-import { productDescriptionModal } from "../stringResources";
+import { FetchedData } from "../types/interfaces";
+import { productDescriptionModal } from "../consts/strings";
 import { Paper, Modal, Box, TableContainer, Table, TableBody, TableRow, TableCell, TableHead } from "@mui/material";
-import { modalStyle, tableCellHeaderStyle } from "../styles/styles";
 
 interface ModalProps {
     isOpen: boolean;
@@ -10,6 +9,17 @@ interface ModalProps {
     dataForModal?: FetchedData
 }
 
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    bgcolor: 'white',
+    boxShadow: 24,
+    outline: "none",
+    p: 4,
+}
 
 const ItemModal: React.FC<ModalProps> = (props) => {
 
@@ -30,13 +40,13 @@ const ItemModal: React.FC<ModalProps> = (props) => {
             open={props.isOpen}
             onClose={props.onClose}
             aria-labelledby="modal-table">
-            <Box sx={modalStyle}>
+            <Box sx={style}>
                 <TableContainer component={Paper}>
                 <Table aria-label='modal-table'>
                     <TableHead>
                         <TableRow>
                             {productDescriptionModal.map((desc, key) =>
-                                <TableCell align="center" sx= {tableCellHeaderStyle} key={desc}>{desc}</TableCell>
+                                <TableCell align="center" sx= {{fontWeight: "bold"}} key={desc}>{desc}</TableCell>
                             )}
                         </TableRow>
                     </TableHead>

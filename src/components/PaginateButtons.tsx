@@ -1,5 +1,5 @@
 import React from "react";
-import { FetchedData } from "../interfaces";
+import { FetchedData } from "../types/interfaces";
 import {Container, Button } from "@mui/material";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';

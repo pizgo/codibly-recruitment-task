@@ -4,10 +4,10 @@ import IdFilter from "./components/IdFilter";
 import ProductList from "./components/ProductList";
 import PaginateButtons from "./components/PaginateButtons";
 import ItemModal from "./components/ItemModal";
-import { FetchedData } from "./interfaces";
-import { fetchData, checkError} from './apiMethods';
-import { paramToUrl } from './urlParams';
-import {useNavigateSearch} from "./customHooks/UseNavigateSearch";
+import { FetchedData } from "./types/interfaces";
+import { fetchData, checkError} from './utils/apiMethods';
+import { paramToUrl } from './consts/urlParams';
+import {useNavigateSearch} from "./hooks/UseNavigateSearch";
 
 const App: React.FC = () => {
     const [pageData, setPageData] = useState<FetchedData[]>([]);

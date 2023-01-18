@@ -2,7 +2,7 @@ import {
     APIEndpoint,
     itemsPerPage,
     connectionError,
-    noIDError } from "./stringResources";
+    noIDError } from "../consts/strings";
 
 
 const fetchingData = (params: {}) : Promise<Response> => {
