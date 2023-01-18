@@ -1,10 +1,10 @@
-import {useState} from "react";
-import {useNavigateSearch} from "./useNavigateSearch";
+import { useState } from "react";
+import { useNavigateSearch } from "./useNavigateSearch";
 
 export const useUserInteracted = (
     initialPageNumber: number,
-    initialProductId: string
-    , callForData: (id: string, page: number) => void) => {
+    initialProductId: string,
+    callForData: (id: string, page: number) => void) => {
     const [pageNumber, setPageNumber] = useState<number>(initialPageNumber)
     const [filteredId, setFilteredId] = useState<string>(initialProductId)
     const navigateSearch = useNavigateSearch()
@@ -16,5 +16,5 @@ export const useUserInteracted = (
         callForData(filteredId, newPageNumber)
     }
 
-    return {handleInteraction, filteredId, pageNumber}
+    return { filteredId, pageNumber, handleInteraction}
 }

@@ -1,9 +1,7 @@
 import {
     APIEndpoint,
     itemsPerPage,
-    connectionError,
-    noIDError } from "../consts/strings";
-
+} from "../consts/strings";
 
 const fetchingData = (params: {}) : Promise<Response> => {
     return fetch(APIEndpoint + new URLSearchParams(params))
@@ -15,15 +13,7 @@ export const fetchData = (params: {
     return fetchingData({...params, per_page: itemsPerPage})
 }
 
-export const checkError = (response: Response) => {
-    if (response.status === 404) {
-        throw Error(noIDError )
-    }  else if  (response.status >= 400){
-        throw Error(connectionError)
-    } else {
-        return response.json();
-    }
-}
+
 
 
 

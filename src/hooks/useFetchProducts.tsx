@@ -1,23 +1,32 @@
 import { useEffect, useState } from "react";
-import { FetchedProductSuccess } from "../types/interfaces";
-import {checkError, fetchData} from "../utils/apiMethods";
+import { FetchedProductState } from "../types/types";
+import { fetchData } from "../utils/apiMethods";
+import {connectionError, noIDError} from "../consts/strings";
 
 export const useFetchProducts = (
     initialId: string,
-    initialPageNumber: number
-) => {
-    const [productsState, setProducts] = useState<FetchedProductSuccess>();
-    const [errorMessage, setErrorMessage] = useState<string>("");
+    initialPageNumber: number) => {
+    const [productsState, setProductsState] = useState<FetchedProductState>({ status: "INITIAL" });
+    
+    const checkError = (response: Response) => {
+        if (response.status === 404) {
+            throw Error(noIDError)
+        } else if (response.status >= 400) {
+            throw Error(connectionError)
+        } else {
+            return response.json();
+        }
+    }
 
     const callForData = ( id: string, page: number ) => {
+        setProductsState({ status: "LOADING"})
         fetchData( {id, page})
             .then (checkError)
             .then ((responseBody) => {
-                setProducts(responseBody);
-                setErrorMessage("")
+                setProductsState( { status: "SUCCESS", payload: responseBody });
             })
             .catch( (error) => {
-                setErrorMessage(error.message)
+                setProductsState({ status: "ERROR", error })
             });
     };
 
@@ -25,5 +34,5 @@ export const useFetchProducts = (
         callForData(initialId, initialPageNumber);
     }, [initialId, initialPageNumber]);
 
-    return { productsState: productsState, errorMessage, callForData}
+    return { productsState: productsState, callForData}
 }

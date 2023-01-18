@@ -8,7 +8,7 @@ import {
     TableCell,
     Paper } from "@mui/material";
 import { productDescriptionMain } from "../consts/strings";
-import { Product } from "../types/interfaces";
+import { Product } from "../types/types";
 
 interface TableRowItemProps {
     product: Product;

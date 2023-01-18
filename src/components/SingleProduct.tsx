@@ -9,7 +9,7 @@ import {
     TableCell,
     TableHead } from "@mui/material";
 import React from "react";
-import { Product } from "../types/interfaces";
+import { Product } from "../types/types";
 import { productDescriptionModal } from "../consts/strings";
 
 const style = {

@@ -8,14 +8,14 @@ interface PaginateButtonsProps  {
     onHandleNext: () => void;
     filteredId: string;
     pageNumberFromApi: number;
-    totalPagesFromApi: number | undefined; //todo remove undefined
+    totalPagesFromApi?: number;
 }
 
 const PaginateButtons: React.FC<PaginateButtonsProps> = (
     {onHandlePrev, onHandleNext, filteredId, pageNumberFromApi, totalPagesFromApi}) => {
 
     const shouldShowPrevButton = pageNumberFromApi !== 1 && !filteredId;
-    const shouldShowNextButton = totalPagesFromApi !== pageNumberFromApi;
+    const shouldShowNextButton = totalPagesFromApi !== pageNumberFromApi && !!totalPagesFromApi;
 
     return (
         <Container sx={{display: 'flex', justifyContent: 'space-between', mt: 2}}>
