@@ -7,7 +7,7 @@ import { modalStyle, tableCellHeaderStyle } from "../styles/styles";
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
-    dataForModal: FetchedData
+    dataForModal?: FetchedData
 }
 
 
@@ -16,12 +16,12 @@ const ItemModal: React.FC<ModalProps> = (props) => {
     if (!props.isOpen) return null
 
     const tableRowModal = (dataForModal: FetchedData) => (
-        <TableRow sx={{background: props.dataForModal.color}}>
-            <TableCell align="center">{props.dataForModal.id}</TableCell>
-            <TableCell align="center">{props.dataForModal.name}</TableCell>
-            <TableCell align="center">{props.dataForModal.year}</TableCell>
-            <TableCell align="center">{props.dataForModal.color}</TableCell>
-            <TableCell align="center">{props.dataForModal.pantone_value}</TableCell>
+        <TableRow sx={{background: dataForModal.color}}>
+            <TableCell align="center">{dataForModal.id}</TableCell>
+            <TableCell align="center">{dataForModal.name}</TableCell>
+            <TableCell align="center">{dataForModal.year}</TableCell>
+            <TableCell align="center">{dataForModal.color}</TableCell>
+            <TableCell align="center">{dataForModal.pantone_value}</TableCell>
         </TableRow>
     )
 
@@ -41,7 +41,7 @@ const ItemModal: React.FC<ModalProps> = (props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {tableRowModal(props.dataForModal)}
+                        {props.dataForModal ? tableRowModal(props.dataForModal) : null}
                     </TableBody>
                 </Table>
                 </TableContainer>

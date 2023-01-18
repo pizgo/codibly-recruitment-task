@@ -17,7 +17,7 @@ const App: React.FC = () => {
     const [pageNumber, setPageNumber] = useState<number>( paramToUrl.get("page") ? parseInt("" + paramToUrl.get('page')) : 1)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
-    const [dataForModal, setDataForModal]= useState<any>();
+    const [dataForModal, setDataForModal]= useState<FetchedData>();
     const [errorMessage, setErrorMessage]= useState<any>();
     const navigateSearch = useNavigateSearch()
 
@@ -57,7 +57,7 @@ const App: React.FC = () => {
         callForData(filteredId, newPageNumber)
     }
 
-    const modalOpen = (item: {}) : void => {
+    const modalOpen = (item: FetchedData) : void => {
             setIsModalOpen(true);
             setDataForModal(item);
     }
@@ -69,7 +69,8 @@ const App: React.FC = () => {
                 <Alert severity='error'
                     sx={{mb: 3}}>
                     {errorMessage}</Alert>}
-            <IdFilter filterId= {filterID}/>
+            <IdFilter filterId= {filterID}
+                        value={filteredId}/>
             {!isError && <ProductList
                 pageData={pageData}
                 modalOpen = {modalOpen}/>}

@@ -9,3 +9,5 @@ export const useNavigateSearch = () => {
         })
     }
 }
+
+//uogólnić hooka i zrobić np listę argumentów, żeby móc to wielokrotnie używać

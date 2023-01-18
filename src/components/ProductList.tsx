@@ -6,7 +6,7 @@ import { tableCellHeaderStyle } from "../styles/styles";
 
 interface ProductListProps {
     pageData: FetchedData[],
-    modalOpen: ({}) => void,
+    modalOpen: (item: FetchedData) => void,
 }
 
 const ProductList: React.FC<ProductListProps> = props => {
