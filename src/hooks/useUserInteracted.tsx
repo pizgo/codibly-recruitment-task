@@ -14,7 +14,7 @@ export const useUserInteracted = (
         setFilteredId(filteredId)
         navigateSearch(filteredId, newPageNumber)
         callForData(filteredId, newPageNumber)
-    }
+    };
 
     return { filteredId, pageNumber, handleInteraction}
-}
+};

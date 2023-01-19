@@ -18,45 +18,46 @@ const App: React.FC = () => {
     const initialPageNumber = Number(searchParams.get("page")) || 1;
 
     const { productsState, callForData } = useFetchProducts(initialProductId, initialPageNumber);
-    const {  filteredId, pageNumber, handleInteraction} = useUserInteracted(initialPageNumber, initialProductId, callForData)
+    const {  filteredId, pageNumber, handleInteraction } = useUserInteracted(initialPageNumber, initialProductId, callForData)
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [chosenProduct, setChosenProduct]= useState<Product>();
 
     const handleFilterIdChange = (enteredId : string) : void => {
         handleInteraction(1, enteredId)
-    }
+    };
 
     const handleArrowClick = (dir: "prev" | "next") => {
         const newPageNumber : number =
             dir === "next" ? pageNumber + 1 : pageNumber - 1;
         handleInteraction(newPageNumber, filteredId)
-    }
+    };
 
     const handleChooseProduct = (item: Product) : void => {
             setIsModalOpen(true);
             setChosenProduct(item);
-    }
+    };
+
     const handleCloseModal = () => setIsModalOpen(false);
 
-    if (productsState.status === "INITIAL" || productsState.status === "LOADING") {
+    if (productsState.status === "INITIAL") {
         return  (
-            <Box sx={{ display: 'flex', justifyContent: "center"}}>
-                <CircularProgress />
+            <Box sx={{display: 'flex', justifyContent: "center"}}>
+                <div>Loading...</div>
             </Box>
         )
     }
     else if (productsState.status === "ERROR") {
         return (
             <Container maxWidth="sm" sx={{ mt: 5 }}>
+                <ProductSearchField
+                    onChangeInput={handleFilterIdChange}
+                    value={filteredId}/>
                 {productsState.error.message && (
-                    <Alert severity="error" sx={{ mb: 3 }}>
+                    <Alert severity="error" sx={{ mt: 4 }}>
                         {productsState.error.message}
                     </Alert>
                 )}
-                <ProductSearchField
-                    value={filteredId}
-                    onChangeInput={handleFilterIdChange} />
             </Container>
             )
     }

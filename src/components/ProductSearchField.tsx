@@ -1,16 +1,18 @@
 import React from "react";
-import { Container, Input } from "@mui/material";
-
-interface IdFilterProps {
-    onChangeInput: (enteredId: string) => void;
-    value: string;
-}
+import {
+    Container,
+    Input } from "@mui/material";
 
 const style = {
     border: 1,
     p: 1,
     borderRadius: "4px",
     outline: "none"
+}
+
+interface IdFilterProps {
+    onChangeInput: (enteredId: string) => void;
+    value: string;
 }
 
 const ProductSearchField: React.FC<IdFilterProps> = ({ onChangeInput, value }) => {
@@ -29,11 +31,10 @@ const ProductSearchField: React.FC<IdFilterProps> = ({ onChangeInput, value }) =
                     value={value}
                     id="outlined-number"
                     placeholder="type the product's ID"
-                    onChange={handleChange}
-                />
+                    onChange={handleChange}/>
             </form>
         </Container>
     )
-}
+};
 
 export default ProductSearchField;

@@ -39,6 +39,6 @@ const PaginateButtons: React.FC<PaginateButtonsProps> = (
             </div>
         </Container>
      )
-}
+};
 
 export default PaginateButtons;

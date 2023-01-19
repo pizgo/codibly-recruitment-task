@@ -8,6 +8,4 @@ export const useNavigateSearch = () => {
             search: (id) ? `?id=${id}` : `?page=${page}`
         })
     }
-}
-
-//uogólnić hooka i zrobić np listę argumentów, żeby móc to wielokrotnie używać
+};

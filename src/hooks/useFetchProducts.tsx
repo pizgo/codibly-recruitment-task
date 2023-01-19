@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { FetchedProductState } from "../types/types";
 import { fetchData } from "../utils/apiMethods";
-import {connectionError, noIDError} from "../consts/strings";
+import {
+    connectionError,
+    noIDError } from "../consts/strings";
 
 export const useFetchProducts = (
     initialId: string,
@@ -19,7 +21,6 @@ export const useFetchProducts = (
     }
 
     const callForData = ( id: string, page: number ) => {
-        setProductsState({ status: "LOADING"})
         fetchData( {id, page})
             .then (checkError)
             .then ((responseBody) => {
@@ -31,8 +32,8 @@ export const useFetchProducts = (
     };
 
     useEffect(()  : void => {
-        callForData(initialId, initialPageNumber);
+        callForData(initialId, initialPageNumber)
     }, [initialId, initialPageNumber]);
 
     return { productsState: productsState, callForData}
-}
+};

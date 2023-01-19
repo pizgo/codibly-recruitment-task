@@ -20,6 +20,5 @@ export interface FetchedProductError {
 
 export type FetchedProductState =
     | { status: "INITIAL" }
-    | { status: "LOADING" }
     | { status: "SUCCESS"; payload: FetchedProductSuccess }
     | { status: "ERROR"; error: FetchedProductError };

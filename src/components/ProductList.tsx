@@ -18,7 +18,7 @@ interface TableRowItemProps {
 const TableRowItem : React.FC<TableRowItemProps>  = ({ product, onChooseProduct }) => {
 
     const handleChooseProduct = () => {
-        onChooseProduct(product);
+        onChooseProduct(product)
     };
 
     return (
@@ -70,6 +70,6 @@ const ProductList: React.FC<ProductListProps> = ({ products, onChooseProduct }) 
             </TableContainer>
         </>
     )
-}
+};
 
 export default ProductList;
