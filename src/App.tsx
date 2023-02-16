@@ -18,7 +18,7 @@ const App: React.FC = () => {
     const initialPageNumber = Number(searchParams.get("page")) || 1;
 
     const { productsState, callForData } = useFetchProducts(initialProductId, initialPageNumber);
-    const {  filteredId, pageNumber, handleInteraction } = useUserInteracted(initialPageNumber, initialProductId, callForData)
+    const { filteredId, pageNumber, handleInteraction } = useUserInteracted(initialPageNumber, initialProductId, callForData)
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [chosenProduct, setChosenProduct]= useState<Product>();

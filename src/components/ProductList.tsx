@@ -15,7 +15,7 @@ interface TableRowItemProps {
     onChooseProduct: (item: Product) => void;
 }
 
-const TableRowItem : React.FC<TableRowItemProps>  = ({ product, onChooseProduct }) => {
+const TableRowItem : React.FC<TableRowItemProps> = ({ product, onChooseProduct }) => {
 
     const handleChooseProduct = () => {
         onChooseProduct(product)

@@ -22,3 +22,5 @@ export type FetchedProductState =
     | { status: "INITIAL" }
     | { status: "SUCCESS"; payload: FetchedProductSuccess }
     | { status: "ERROR"; error: FetchedProductError };
+
+

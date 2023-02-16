@@ -13,7 +13,3 @@ export const fetchData = (params: {
     return fetchingData({...params, per_page: itemsPerPage})
 }
 
-
-
-
-
