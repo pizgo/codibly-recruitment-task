@@ -7,9 +7,10 @@
 * after cliking on a row with specific color, the modal pops up with detailed information about the item.
 
 ## Why I made this 
-* because I like colors :)
 * to practice TypeScript, custom hooks and working with URLSearchParams;
 * to get familiar with Material UI 
+* because I like working with colors :)
+
 
 ## Technologies:
 * Typescript
@@ -23,4 +24,4 @@
 * adding tests
 * adding funcionality for searching information about different colors
 * adding color palette generator 
-* improving the UI
+* improving the UI, as it is rather basic atm
