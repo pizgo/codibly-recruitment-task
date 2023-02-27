@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
     Container,
     Alert,
-    CircularProgress,
     Box } from "@mui/material/";
 import ProductSearchField from "./components/ProductSearchField";
 import ProductList from "./components/ProductList";
