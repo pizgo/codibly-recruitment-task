@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pantone-color-of-the-year/static/css/main.b9f48e31.css",
+    "main.js": "/pantone-color-of-the-year/static/js/main.0928cc88.js",
+    "index.html": "/pantone-color-of-the-year/index.html",
+    "main.b9f48e31.css.map": "/pantone-color-of-the-year/static/css/main.b9f48e31.css.map",
+    "main.0928cc88.js.map": "/pantone-color-of-the-year/static/js/main.0928cc88.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b9f48e31.css",
+    "static/js/main.0928cc88.js"
+  ]
+}
